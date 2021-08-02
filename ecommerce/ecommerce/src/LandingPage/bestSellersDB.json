@@ -1,0 +1,59 @@
+{
+    "best-sellers": [
+        {
+            "id": 54654625,
+            "item": "Jaqueta Para Bebês",
+            "price": "R$72,00",
+            "color": "Branca",
+            "image": "https://i.imgur.com/VK10FrN.jpg",
+            "secImage": "https://i.imgur.com/PteHScS.jpg",
+            "description": "Jaqueta de tricô com detalhe na gola e botões de madeira. Confeccionado com lã reciclada."
+        },
+        {
+            "id": 89612154,
+            "item": "Camiseta Para Bebês",
+            "price": "R$32,00",
+            "color": "Branca",
+            "image": "https://i.imgur.com/p3CguZB.jpg",
+            "secImage": "https://i.imgur.com/vHgTJmS.jpg",
+            "description": "Camiseta de manga comprida com gola alta e babados, feita com algodão orgânico."
+        },
+        {
+            "id": 84654161,
+            "item": "Camisa Patchwork",
+            "price": "R$55,00",
+            "color": "Estampado",
+            "image": "https://i.imgur.com/JcgDwnE.jpg",
+            "secImage": "https://i.imgur.com/ynysIXD.jpg",
+            "description": "Camisa com patchwork de manga comprida com bolsos de patchwork."
+        },
+        {
+            "id": 66412312,
+            "item": "Jaqueta Clássica",
+            "price": "R$72,00",
+            "color": "Marrom",
+            "image": "https://i.imgur.com/rcGw6EG.jpg",
+            "secImage": "https://i.imgur.com/44mhxNS.jpg",
+            "description": "Jaqueta clássica com interior alcochoado na cor chocolate."
+        },
+        {
+            "id": 31354682,
+            "item": "Pulôver de Tricô",
+            "price": "R$65,00",
+            "color": "Branca",
+            "image": "https://i.imgur.com/txOMglB.jpg",
+            "secImage": "https://i.imgur.com/RD6stUM.jpg",
+            "description": "Pulôver de tricô com mangas volumosas confeccionado com lã reciclada."
+        },
+        {
+            "id": 54121354,
+            "item": "Pulôver Leopardo",
+            "price": "R$75,00",
+            "color": "Estampado",
+            "image": "https://i.imgur.com/43jIymf.jpg",
+            "secImage": "https://i.imgur.com/tJ8zagT.jpg",
+            "description": "Pulôver tricotado com estampa animal, confeccionado com lã reciclada."
+        }
+
+    ]
+}

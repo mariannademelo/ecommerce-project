@@ -1,0 +1,58 @@
+{
+    "top-products": [
+        {
+            "id": 25664644,
+            "item": "Jaqueta Para Bebês",
+            "price": "R$55,00",
+            "color": "Estampado",
+            "image": "https://i.imgur.com/JFjOq35.jpg",
+            "secImage": "https://i.imgur.com/48OC8OM.jpg",
+            "description": "Jaqueta de tricô com botões de madeira e estampa leopardo."
+        },
+        {
+            "id": 54685215,
+            "item": "Top de Tricô",
+            "price": "R$32,99",
+            "color": "Branco",
+            "image": "https://i.imgur.com/QbgZkFh.jpg",
+            "secImage": "https://i.imgur.com/SQYXQF3.jpg",
+            "description": "Blusa de Tricô feita em algodão orgânico com alças e detalhes em ponto aberto."
+        },
+        {
+            "id": 51252158,
+            "item": "Casaco Moletom Roxo",
+            "price": "R$57,00",
+            "color": "Roxo",
+            "image": "https://i.imgur.com/HEHPcbt.jpg",
+            "secImage": "https://i.imgur.com/R5O8jEl.jpg",
+            "description": "Moletom com bolsos canguru e remendos em contraste."
+        },
+        {
+            "id": 31584512,
+            "item": "Calça Marsala",
+            "price": "R$42,00",
+            "color": "Marsala",
+            "image": "https://i.imgur.com/j1ofFVh.jpg",
+            "secImage": "https://i.imgur.com/qW9xGec.jpg",
+            "description": "Calça clássica com perna larga em veludo marsala."
+        },
+        {
+            "id": 31315482,
+            "item": "Jaqueta Jeans",
+            "price": "R$75,00",
+            "color": "Jeans",
+            "image": "https://i.imgur.com/r3MIXAC.jpg",
+            "secImage": "https://i.imgur.com/BoKGTtp.jpg",
+            "description": "Jaqueta jeans oversized com botões personalizados."
+        },
+        {
+            "id": 62313155,
+            "item": "Macacão Para Bebês",
+            "price": "R$72,00",
+            "color": "Marrom",
+            "image": "https://i.imgur.com/XNa57Dr.jpg",
+            "secImage": "https://i.imgur.com/4wISyRM.jpg",
+            "description": "Macacão de bebê em veludo cotelê na cor caramelo"
+        }
+    ]
+}
