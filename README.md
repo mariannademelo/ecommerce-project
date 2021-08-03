@@ -1,6 +1,6 @@
 <h1>Rodini Shop</h1>
 
-Projeto de ecommerce criado para participar do processo seletivo para estágio Front End. 
+Projeto de ecommerce criado para participar do processo seletivo para estágio Front End. <br />
 As fotos e descrições foram usadas como parte de desenvolvimento deste projeto pessoal, não pertencem a mim.
 
 No diretório do projeto, além de inicializar a aplicação em http://localhost:3000, 
