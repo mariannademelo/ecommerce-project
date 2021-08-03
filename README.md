@@ -18,5 +18,5 @@ CSS3 e JSX.
 No diretório do projeto, instale o node package <br/> 
 inicialize a aplicação com **npm run start**, <br />
 inicialize o JSON server com <br />
-**npx json-server watch src/AllProductsDB.json --port 7000** <br />
+**npx json-server --watch src/AllProductsDB.json --port 7000** <br />
 para conseguir visualizar os produtos e o layout web. 
