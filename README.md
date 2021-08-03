@@ -21,4 +21,5 @@ inicialize o JSON server com <br />
 **npx json-server --watch src/AllProductsDB.json --port 7000** <br />
 para conseguir visualizar os produtos e o layout web. 
 
-![Store](https://user-images.githubusercontent.com/82395166/128014190-ce12b85d-07bb-4e54-b74e-b79503bde6ed.png)
+![Store (1)](https://user-images.githubusercontent.com/82395166/128014382-09e86c29-af43-497e-a9ea-921bc537641b.png)
+
