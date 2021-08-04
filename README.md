@@ -1,6 +1,4 @@
-<h3>Rodini Shop</h3>
-
-<hr/>
+# Rodini Shop
 
 <h4>Descrição</h4>
 
