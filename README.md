@@ -14,7 +14,11 @@ CSS3 e JSX.
 <h4>Para inicializar:</h4>
 
 No diretório do projeto, instale o node package <br/> 
-inicialize a aplicação com **npm run start**, <br />
+inicialize a aplicação com 
+
+```bash
+ npm run start
+```
 inicialize o JSON server com <br />
 **npx json-server --watch src/AllProductsDB.json --port 7000** <br />
 para conseguir visualizar os produtos e o layout web. 
