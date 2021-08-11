@@ -21,7 +21,6 @@ const LandingPage = ({ allProducts }) => {
             <BannerSlider />
             <Categories />
             {products && <FeaturedProducts allProducts={allProducts} />}
-            
             {products && <Arrivals arrivals={ arrivals }/>}
         </div>
     );

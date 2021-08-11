@@ -8,6 +8,7 @@ const Arrivals = ({ arrivals }) => {
 
     return ( 
         <>
+        <div className="arrivals-ctn">
             <p className='novidades'>novidades</p>
             <div className='arrivals'>
                 {arrivalsList.map(product => (
@@ -26,6 +27,7 @@ const Arrivals = ({ arrivals }) => {
                 ))}
             </div>
             <Link to="/novidades"><button className='arrivals-button' type="button">Saiba mais!</button></Link>
+        </div>
         </>
     );
 }

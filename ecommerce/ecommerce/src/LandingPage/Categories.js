@@ -32,7 +32,9 @@ const Categories = () => {
                     <div className='label'>
                         <span>{ image.description }</span>
                     </div>
-                    <Link to={`/${image.for}`}><img src={image.pic} alt=""/></Link>
+                    <div className="categories-img">
+                        <Link to={`/${image.for}`}><img src={image.pic} alt=""/></Link>
+                    </div>
                 </div>
             ))}
         </div>

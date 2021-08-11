@@ -9,20 +9,20 @@ const FeaturedProducts = ({ allProducts }) => {
     const [sellers, setSellers] = useState()
     const [feature, setFeature] = useState(true)
 
-    const nextProduct = (data, index, setIndex) => {
-        if (index !== data.length - 3){
-            setIndex(index + 3)
-        } else if (index === data.length - 3){
+    const nextProduct = (data, index, setIndex, n) => {
+        if (index !== data.length - n){
+            setIndex(index + n)
+        } else if (index === data.length - n){
             setIndex(0)
         }
         
     };
 
-    const prevProduct = (data, index, setIndex) => {
+    const prevProduct = (data, index, setIndex, n) => {
         if (index !== 0) {
-            setIndex(index - 3)
+            setIndex(index - n)
         } else if (index === 0){
-            setIndex(data.length - 3)
+            setIndex(data.length - n)
         }
     };
     
