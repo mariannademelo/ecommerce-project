@@ -25,5 +25,4 @@ npx json-server --watch src/AllProductsDB.json --port 7000
 ```
 para conseguir visualizar os produtos e o layout web. 
 
-![Store (1)](https://user-images.githubusercontent.com/82395166/128014382-09e86c29-af43-497e-a9ea-921bc537641b.png)
 
