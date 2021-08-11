@@ -7,8 +7,8 @@ As fotos e descrições foram usadas como parte de desenvolvimento deste projeto
 
 <h4>Ferramentas</h4>
 
-Na construção dessa aplicação foi utilizada a ferramenta ReactJS, React Router, <br/>
-bootstrapped com **create react app**, <br />
+Na construção dessa aplicação foi utilizada as ferramentas ReactJS, React Router, <br/>
+bootstrapped com **create react app**, JSON server <br />
 CSS3 e JSX.
 
 <h4>Para inicializar:</h4>
