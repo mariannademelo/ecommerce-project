@@ -2,7 +2,7 @@
 
 <h4>Descrição</h4>
 
-Projeto de ecommerce criado para participar do processo seletivo para estágio Front End. <br />
+Página ecommerce responsiva. <br />
 As fotos e descrições foram usadas como parte de desenvolvimento deste projeto pessoal, não pertencem a mim.
 
 <h4>Ferramentas</h4>
