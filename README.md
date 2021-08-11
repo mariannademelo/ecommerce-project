@@ -23,6 +23,6 @@ inicialize o JSON server com <br />
 ```bash
 npx json-server --watch src/AllProductsDB.json --port 7000
 ```
-para conseguir visualizar os produtos e o layout web. 
+para conseguir visualizar os produtos e o layout. 
 
 
