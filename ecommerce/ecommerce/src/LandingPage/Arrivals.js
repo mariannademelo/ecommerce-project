@@ -9,7 +9,7 @@ const Arrivals = ({ arrivals }) => {
     return ( 
         <>
         <div className="arrivals-ctn">
-            <p className='novidades'>novidades</p>
+            <p className='arrival'>novidades</p>
             <div className='arrivals'>
                 {arrivalsList.map(product => (
                 <div className='arrival-preview'>

@@ -489,19 +489,19 @@ body {
 
 .product-content {
   max-height: 38%;
-  border: 1px solid #00000029;
   width: 100%;
   height: 33%;
 }
 
-.product-content span {
-  margin: 0px 0 0 12px;
+.product-content h3 {
+  text-align: center;
   font-size: 0.9em;
   font-weight: 700;
 }
 
 .product-content p {
-  margin: 5px 0 0 25px;
+  text-align: center;
+  margin: 5px 0 0 0;
   font-weight: 300;
   font-size: 0.9em;
 }
@@ -556,9 +556,10 @@ body {
   margin-top: 7vh;
 }
 
-.novidades {
+.arrival {
   font-size: 38px;
   font-weight: 600;
+  text-align: center;
 }
 
 .arrivals {
@@ -580,7 +581,7 @@ body {
   justify-content: center;
   display: flex;
   padding: 12px;
-  width: 22%;
+  width: 30%;
   flex-direction: column;
   align-items: center;
   height: auto;
@@ -780,7 +781,7 @@ body {
   border: 0;
   background: rgb(86 94 142 / 85%);
   height: 6vh;
-  font-weight: 400;
+  font-weight: 600;
   color: rgb(255 255 255);
   cursor: pointer;
   margin-top: 21px;
@@ -934,8 +935,20 @@ body {
 
 /* Collections */
 
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.novidades {
+  font-size: 53px;
+  font-weight: 800;
+  text-align: center;
+  margin: 11vh 0 7vh;
+}
+
 .product-list {
-  padding: 10em 0 4em;
+  padding: 3em 0 4em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center; 
@@ -1000,7 +1013,7 @@ body {
 
 @media screen and (max-width: 2244px) {
   .slider-ctn {
-    height: 100vh;
+    height: 121vh;
   }
 }
 
@@ -1013,6 +1026,14 @@ body {
   }
 
   /* NavBar */
+
+  .navbar hr {
+    bottom: 29px;
+  }
+
+  .navbar p {
+    bottom: 8px;
+  }
 
   .nav-content, .navbar-list {
     display: none;
@@ -1196,7 +1217,7 @@ body {
   }
 
   .main-footer {
-    height: 55vh;
+    height: 71vh;
     width: 40%;
     padding-top: 0;
   }
