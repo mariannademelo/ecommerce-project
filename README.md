@@ -1,5 +1,7 @@
 # Rodini Shop
 
+em construção...
+
 <h4>Descrição</h4>
 
 Página ecommerce responsiva. <br />
