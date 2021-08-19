@@ -1,6 +1,6 @@
 import Arrivals from "./Arrivals";
 import BannerSlider from "./BannerSlider"
-import Categories from "./Categories";
+import Categories from "./CategoriesSection";
 import { useEffect, useState } from "react";
 import FeaturedProducts from "./FeaturedProducts";
 

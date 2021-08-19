@@ -268,9 +268,100 @@ body {
   flex-direction: column;
   position: absolute;
   z-index: 2;
-  height: 12vh;
   width: 41vw;
   top: 98px;
+}
+
+/* Floating Cart */
+
+.cart-ctn img {
+  object-fit: cover;
+  height: 14vh;
+  width: 8vw;
+}
+
+
+.main-cart {
+  height: 18vh;
+}
+
+.main-cart .cart-product {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-product div:nth-of-type(1){
+  width: 14vw;
+  height: 14vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  right: 24px;
+}
+
+.cart-product div:nth-of-type(2){
+}
+
+.cart-product div:nth-of-type(3){
+  font-size: 13px;
+}
+
+.cart-product div:nth-of-type(1) p:nth-of-type(1) {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cart-product div:nth-of-type(1) p:nth-of-type(4) {
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.cart-product div:nth-of-type(1) p {
+  font-weight: 400;
+}
+
+.cart-ctn .total-price {
+  align-items: center;
+  display: flex;
+  border-bottom: 0.01em solid #0003;
+  border-top: 0.01em solid #0003;
+  height: 6vh;
+  justify-content: space-between;
+}
+
+.cart-ctn .total-price span{
+  font-size: 14px;
+  cursor: initial;
+}
+
+.cart-ctn .total-price span:hover{
+  color: initial;
+}
+
+.cart-ctn .checkout {
+  display: flex;
+  height: 12vh;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.cart-ctn .checkout button {
+  color: white;
+  height: 6vh;
+  width: 14vw;
+  border: 0;
+  cursor: pointer;
+  background: rgb(167 170 175);
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  transition: button .3s ease;
+}
+
+.cart-ctn .checkout button:hover {
+  background: rgb(167 170 175 / 67%);
 }
 
 /* BannerSlider */

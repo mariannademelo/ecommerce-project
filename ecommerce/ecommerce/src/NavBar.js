@@ -3,11 +3,16 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react/cjs/react.development';
+import useFetchCart from './useFetchCart';
+import useFetch from './LandingPage/useFetch';
 
-const NavBar = () => {
+const NavBar = ({ cart, setCart }) => {
 
     const element = <FontAwesomeIcon icon={faChevronDown} />
+    const [openCart, setOpenCart] = useState(false)
+    const { data: cartData } = useFetchCart('http://localhost:8000/cart', openCart)
 
     return ( 
         <div className='navbar'>
@@ -24,9 +29,16 @@ const NavBar = () => {
                         <NavItemLogin name={'Minha Conta'} icon={element}>
 
                         </NavItemLogin>
-                        <NavItemCart name={'Meu Carrinho'} icon={element}>
 
-                        </NavItemCart>
+                        {cartData && <NavItemCart
+                        openCart={openCart}
+                        setOpenCart={setOpenCart} 
+                        cartData={cartData}
+                        name={'Meu Carrinho'} 
+                        icon={element} 
+                        cart={cart} 
+                        setCart={setCart} />}
+
                     </section>
                     <ToggleMenu />
                 </div>
@@ -41,92 +53,9 @@ const NavBar = () => {
 export default NavBar;
 
 
-// Abre o menu responsivo
-
-
-function ToggleMenu() {
-
-    const [menu, setMenu] = useState(false)
-
-    function ToggleMenuItem(props) {
-
-        const [open, setOpen] = useState(false)
-    
-        return (
-            <li 
-            onMouseLeave={() => setOpen(false)}
-            >
-                <Link
-                to={props.link}
-                onMouseOver={() => setOpen(true)}
-                className='toggle-menu_items'>
-                {props.item}</Link>
-                <div 
-                
-                className={ open === false ? "inactive" : "toggle-menu_items"} 
-                >
-                    <h3>{ props.title }</h3>
-                    {open && props.children}
-                </div>
-    
-            </li>
-        );
-    }
-
-    function ToggleMenuDropdown(props) {
-        return (
-            <Link to={props.itemLink} className="toggle-menu_dropdown">
-                {props.menuItem}
-            </Link>
-        );
-    }
-
-    return(
-        <>
-            <div onClick={() => setMenu(true)}
-            className='hamb-icon'><FontAwesomeIcon icon={faBars} /></div>
-            {menu && (
-                <div className='toggle-menu'>
-                    <ul>
-                        <li><Link to="/novidades" className='toggle-menu_items' >NOVIDADES</Link></li>
-                        <ToggleMenuItem link={"/meninas"} item={"MENINAS"}>
-                            <ToggleMenuDropdown itemLink={"/meninas/blusas"} menuItem={"Blusas"} />
-                            <ToggleMenuDropdown itemLink={"/meninas/casacos"} menuItem={"Casacos"} />
-                            <ToggleMenuDropdown itemLink={"/meninas/pijamas"} menuItem={"Pijamas"} />
-                            <ToggleMenuDropdown itemLink={"/meninas/pulover"} menuItem={"Pulôver"} />
-                            <ToggleMenuDropdown itemLink={"/meninas/vestidos"} menuItem={"Vestidos"} />
-                            <ToggleMenuDropdown itemLink={"/meninas/tops"} menuItem={"Tops"} />
-                        </ToggleMenuItem>
-                        <ToggleMenuItem link={"/meninos"} item={"MENINOS"}>
-                            <ToggleMenuDropdown itemLink={"/meninos/blusas"} menuItem={"Blusas"} />
-                            <ToggleMenuDropdown itemLink={"/meninos/casacos"} menuItem={"Casacos"} />
-                            <ToggleMenuDropdown itemLink={"/meninos/calças"} menuItem={"Calças"} />
-                            <ToggleMenuDropdown itemLink={"/meninos/jaquetas"} menuItem={"Jaquetas"} />
-                        </ToggleMenuItem>
-                        <ToggleMenuItem link={"/bebes"} item={"BEBÊS"}>
-                            <ToggleMenuDropdown itemLink={"/bebes/bodies"} menuItem={"Bodies"} />
-                            <ToggleMenuDropdown itemLink={"/bebes/blusas"} menuItem={"Blusas"} />
-                            <ToggleMenuDropdown itemLink={"/bebes/calças"} menuItem={"Calças"} />
-                            <ToggleMenuDropdown itemLink={"/bebes/jaquetas"} menuItem={"Jaquetas"} />
-                            <ToggleMenuDropdown itemLink={"/bebes/macacoes"} menuItem={"Macacões"} />
-                        </ToggleMenuItem>
-                        <li><Link to="/" className='toggle-menu_items' >Minha conta</Link></li>
-                        <li><Link to="/" className='toggle-menu_items' >Meu Carrinho</Link></li>
-                    </ul>
-                    <div className='close-menu'>
-                        <span onClick={() => setMenu(false)}>FECHAR</span>
-                    </div>
-                </div>
-            )}
-        </>
-    );
-}
-
-
-
 // Para criar a opção de criar conta ou fazer login
 // também para acessar o carrinho de compras
-// ambas funcionalidades ainda por for fazer
+// ambas funcionalidades ainda por fazer
 
 function NavItemLogin({name, icon}) {
 
@@ -137,24 +66,111 @@ function NavItemLogin({name, icon}) {
             <span onClick={() => login === false ? setLogin(true) : setLogin(false)}>{ name }</span>
             <span className='icon-arrow'>{ icon }</span>
             
-            <div className={login === false ? "inactive" : 'login'}>
+            <div onMouseLeave={() => setLogin(false)} className={login === false ? "inactive" : 'login'}>
                 {login && <Login />}
             </div>
         </>
     );
 }
 
-function NavItemCart({name, icon}) {
+function NavItemCart({name, icon, cart, setCart, cartData, openCart, setOpenCart}) {
 
-    const [cart, setCart] = useState(false)
+    const [emptyCart, setEmptyCart] = useState()
+    
+    
+
+    useEffect(() => {
+        if (cartData.length === 0) {
+            setEmptyCart(true)
+            setCart(false)
+        } else if (cartData.length > 0) {
+            setEmptyCart(false)
+            setCart(true)
+        }
+    }, [openCart])
+
+    console.log(emptyCart)
+    console.log(cart)
+    console.log(cartData.length)
+
 
     return (
         <>
-            <span onClick={() => cart === false ? setCart(true) : setCart(false)}>{ name }</span>
+            <span onClick={() => openCart === false ? setOpenCart(true) : setOpenCart(false)}>{ name }</span>
             <span className='icon-arrow'>{ icon }</span>
             
-            <div className={cart === false ? "inactive" : 'cart'}>
-                {cart && <Cart />}
+            <div 
+            onMouseLeave={() => setOpenCart(false)}
+            className={openCart === false ? "inactive" : 'cart'}>
+                {emptyCart && 
+                <EmptyCart 
+                cart={cart} 
+                setCart={setCart} 
+                emptyCart={emptyCart} 
+                setEmptyCart={setEmptyCart} />}
+
+                {cart && 
+                <Cart 
+                cartData={cartData}
+                cart={cart} 
+                setCart={setCart} 
+                emptyCart={emptyCart} 
+                setEmptyCart={setEmptyCart} />}
+            </div>
+        </>
+    );
+}
+
+function Cart({ cart, emptyCart, setEmptyCart, setCart, cartData }) {
+
+    const { id } = useParams();
+    const { data: cartProduct, error, isPending } = useFetch('http://localhost:8000/cart/');
+    
+    const removeFromCart = () => {
+        fetch('http://localhost:8000/cart/' + cartProduct.id, {
+            method: 'DELETE'
+        })
+    }
+
+    
+    return(
+        <>
+            <div className='cart-ctn'>
+                {cartData.map(product => (
+                    <>
+                    <div className="main-cart">
+                        <div className='cart-product'>
+                            <img src={product.image} alt="" />
+                            <div>
+                                <p>{ product.item }</p>
+                                <p>{ product.price }</p>
+                                <p>Tamanho: </p>
+                                <p onClick={() => console.log(cartProduct.id)}>REMOVER</p>
+                            </div>
+                            <div>Quant</div>
+                            <div>{product.price}</div>
+                        </div>
+                    </div>
+                    </>
+                ))}
+                <div className='total-price'>
+                    <span>Total</span>
+                    <span>Em reais</span>
+                </div>
+                <div className='checkout'>
+                    <button>Finalizar Compra</button>
+                </div>
+            </div>
+        </>
+    );
+}
+
+function EmptyCart() {
+
+    return (
+        <>
+            <div>
+                <p>Você não adicionou nada ainda ao seu carrinho</p>
             </div>
         </>
     );
@@ -176,13 +192,6 @@ function Login() {
     );
 }
 
-function Cart() {
-    return (
-        <div>
-            <p>Você não adicionou nada ainda ao seu carrinho</p>
-        </div>
-    );
-}
 
 //  Esses Componentes criam o dropdown menu no desktop
 
@@ -259,5 +268,85 @@ function SubNav(props) {
     
     return (
         <ul className="navbar-list">{props.children}</ul>
+    );
+}
+
+
+// Function to display responsive menu
+function ToggleMenu() {
+
+    const [menu, setMenu] = useState(false)
+
+    function ToggleMenuItem(props) {
+
+        const [open, setOpen] = useState(false)
+    
+        return (
+            <li 
+            onMouseLeave={() => setOpen(false)}
+            >
+                <a
+                href={props.link}
+                onMouseOver={() => setOpen(true)}
+                className='toggle-menu_items'>
+                {props.item}</a>
+                <div 
+                
+                className={ open === false ? "inactive" : "toggle-menu_items"} 
+                >
+                    <h3>{ props.title }</h3>
+                    {open && props.children}
+                </div>
+    
+            </li>
+        );
+    }
+
+    function ToggleMenuDropdown(props) {
+        return (
+            <a href={props.itemLink} className="toggle-menu_dropdown">
+                {props.menuItem}
+            </a>
+        );
+    }
+
+    return(
+        <>
+            <div onClick={() => setMenu(true)}
+            className='hamb-icon'><FontAwesomeIcon icon={faBars} /></div>
+            {menu && (
+                <div className='toggle-menu'>
+                    <ul>
+                        <li><Link to="/novidades" className='toggle-menu_items' >NOVIDADES</Link></li>
+                        <ToggleMenuItem link={"/meninas"} item={"MENINAS"}>
+                            <ToggleMenuDropdown itemLink={"/meninas/blusas"} menuItem={"Blusas"} />
+                            <ToggleMenuDropdown itemLink={"/meninas/casacos"} menuItem={"Casacos"} />
+                            <ToggleMenuDropdown itemLink={"/meninas/pijamas"} menuItem={"Pijamas"} />
+                            <ToggleMenuDropdown itemLink={"/meninas/pulover"} menuItem={"Pulôver"} />
+                            <ToggleMenuDropdown itemLink={"/meninas/vestidos"} menuItem={"Vestidos"} />
+                            <ToggleMenuDropdown itemLink={"/meninas/tops"} menuItem={"Tops"} />
+                        </ToggleMenuItem>
+                        <ToggleMenuItem link={"/meninos"} item={"MENINOS"}>
+                            <ToggleMenuDropdown itemLink={"/meninos/blusas"} menuItem={"Blusas"} />
+                            <ToggleMenuDropdown itemLink={"/meninos/casacos"} menuItem={"Casacos"} />
+                            <ToggleMenuDropdown itemLink={"/meninos/calças"} menuItem={"Calças"} />
+                            <ToggleMenuDropdown itemLink={"/meninos/jaquetas"} menuItem={"Jaquetas"} />
+                        </ToggleMenuItem>
+                        <ToggleMenuItem link={"/bebes"} item={"BEBÊS"}>
+                            <ToggleMenuDropdown itemLink={"/bebes/bodies"} menuItem={"Bodies"} />
+                            <ToggleMenuDropdown itemLink={"/bebes/blusas"} menuItem={"Blusas"} />
+                            <ToggleMenuDropdown itemLink={"/bebes/calças"} menuItem={"Calças"} />
+                            <ToggleMenuDropdown itemLink={"/bebes/jaquetas"} menuItem={"Jaquetas"} />
+                            <ToggleMenuDropdown itemLink={"/bebes/macacoes"} menuItem={"Macacões"} />
+                        </ToggleMenuItem>
+                        <li><Link to="/" className='toggle-menu_items' >Minha conta</Link></li>
+                        <li><Link to="/" className='toggle-menu_items' >Meu Carrinho</Link></li>
+                    </ul>
+                    <div className='close-menu'>
+                        <span onClick={() => setMenu(false)}>FECHAR</span>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }

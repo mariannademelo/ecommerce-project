@@ -2,10 +2,39 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "./LandingPage/useFetch";
 
-const ProductDetails = () => {
+const ProductDetails = ({ cart, setCart }) => {
 
     const { id } = useParams()
     const { error, data: product, isPending } = useFetch('http://localhost:7000/all-products/' + id)
+    const { data: cartData } = useFetch('http://localhost:8000/cart')
+    const [ loading, setLoading ] = useState(false)
+    const [ inCart, setInCart ] = useState(false)
+    const [ reset, setReset ] = useState(true)
+
+    const addToCart = (id, quantity, item, price, image) => {
+        setLoading(true)
+        setReset(false)
+        setTimeout(() => {
+            fetch('http://localhost:8000/cart', {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    id: id,
+                    quantity: quantity,
+                    item: item,
+                    price: price,
+                    image: image
+                }),
+            }).then(() => {
+                setLoading(false)
+                setInCart(true)
+                setTimeout(() => {
+                    setInCart(false)
+                    setReset(true)
+                }, 1000)
+            })
+        }, 2000)
+    }
 
     return ( 
         <div className="product-container">
@@ -53,7 +82,24 @@ const ProductDetails = () => {
                         </div>
                     </div>
                     <div className='buy-purchase'>
-                        <button type='button'>ADICIONAR AO CARRINHO</button>
+                        {reset &&
+                        <button 
+                        onClick={() => {
+                            addToCart(product.id, 1, product.item, product.price, product.image)
+                        }}
+                        >ADICIONAR AO CARRINHO</button>}
+                        {inCart &&
+                        <button 
+                        onClick={() => {
+                            addToCart(product.id, 1, product.item, product.price, product.image)
+                        }}
+                        >JÁ ESTÁ NO CARRINHO</button>}
+                        {loading &&
+                        <button 
+                        onClick={() => {
+                            addToCart(product.id, 1, product.item, product.price, product.image)
+                        }}
+                        >CARREGANDO...</button>}
                     </div>
                 </div>
             </>

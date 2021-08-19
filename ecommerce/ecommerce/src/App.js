@@ -7,16 +7,19 @@ import Collections from "./Collections";
 import ProductDetails from "./ProductDetails";
 import GenderCollection from "./GenderCollection";
 import ClothingCategory from "./LandingPage/ClothingCategory";
+import { useState } from "react/cjs/react.development";
 
 function App() {
 
   const { error, data: allProducts, isPending } = useFetch('http://localhost:7000/all-products')
-
+  const [ cart, setCart ] = useState(false)
 
   return (
     <Router>
       <div className="App">
-        <NavBar />
+        <NavBar 
+        cart={cart} 
+        setCart={setCart}/>
 
         <div className="content">
           <Switch>
@@ -34,8 +37,10 @@ function App() {
               {allProducts && <Collections title={'novidades'} groupCol={"newArrivals"} allProducts={allProducts}/>}
             </Route>
 
+            {/* Detalhes do produto */}
+
             <Route path='/produtos/:id'>
-              <ProductDetails />
+              <ProductDetails cart={cart} setCart={setCart} />
             </Route>
 
             {/* P A R A   M E N I N A S */}
