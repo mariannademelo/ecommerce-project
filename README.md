@@ -1,14 +1,16 @@
 # Rodini Shop
 
+em construção...
+
 <h4>Descrição</h4>
 
-Projeto de ecommerce criado para participar do processo seletivo para estágio Front End. <br />
+Página ecommerce responsiva. <br />
 As fotos e descrições foram usadas como parte de desenvolvimento deste projeto pessoal, não pertencem a mim.
 
 <h4>Ferramentas</h4>
 
-Na construção dessa aplicação foi utilizada a ferramenta ReactJS, React Router, <br/>
-bootstrapped com **create react app**, <br />
+Na construção dessa aplicação foi utilizada as ferramentas ReactJS, React Router, <br/>
+bootstrapped com **create react app**, JSON server <br />
 CSS3 e JSX.
 
 <h4>Para inicializar:</h4>
@@ -23,7 +25,6 @@ inicialize o JSON server com <br />
 ```bash
 npx json-server --watch src/AllProductsDB.json --port 7000
 ```
-para conseguir visualizar os produtos e o layout web. 
+para conseguir visualizar os produtos e o layout. 
 
-![Store (1)](https://user-images.githubusercontent.com/82395166/128014382-09e86c29-af43-497e-a9ea-921bc537641b.png)
 
