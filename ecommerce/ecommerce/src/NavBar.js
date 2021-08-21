@@ -203,21 +203,21 @@ function CartItems({ setAdd, setData, data, setQuantity, setPriceItem, cartData 
                             <p>Tamanho: </p>
                             <p onClick={() => removeFromCart(product.id)}>REMOVER</p>
                         </div>
-                        <div className='quantity'>
-                            <span
-                            onClick={() => {
-                                decreaseQuantity(ind)
-                                decreaseTotalProductPrice(ind)
-                            }}
-                            >-</span>
-                            <input value={product.quantity}/>
-                            <span
-                            onClick={() => {
-                                addQuantity(ind)
-                                totalProductPrice(ind)
-                            }}
-                            >+</span>
-                        </div>
+                        // <div className='quantity'>
+                        //     <span
+                        //     onClick={() => {
+                        //         decreaseQuantity(ind)
+                        //         decreaseTotalProductPrice(ind)
+                        //     }}
+                        //     >-</span>
+                        //     <input value={product.quantity}/>
+                        //     <span
+                        //     onClick={() => {
+                        //         addQuantity(ind)
+                        //         totalProductPrice(ind)
+                        //     }}
+                        //     >+</span>
+                        // </div>
                         <div
                         onClick={() => checking(ind)}
                         >R${product.price}</div>
