@@ -90,7 +90,7 @@ function DisplayProducts(props) {
                     </div>
                     <div className='product-content'>
                         <h3> { product.item } </h3>
-                        <p> { product.price } </p> 
+                        <p> R${ product.price } </p> 
                     </div>
                 </div>
             </>

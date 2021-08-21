@@ -23,7 +23,7 @@ const useFetchCart = (url, trigger) => {
         .catch(err => {
             setError(err.message)
         })
-    }, [trigger])
+    }, [url, trigger])
 
     return { data, error , isPending};
 }

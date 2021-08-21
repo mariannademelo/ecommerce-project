@@ -3,7 +3,7 @@
         {
             "id": 25664644,
             "item": "Jaqueta Para Bebês",
-            "price": "R$55,00",
+            "price": 55.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/JFjOq35.jpg",
             "secImage": "https://i.imgur.com/48OC8OM.jpg",
@@ -15,7 +15,7 @@
         {
             "id": 54685215,
             "item": "Top de Tricô",
-            "price": "R$32,99",
+            "price": 32.99,
             "color": "Branco",
             "image": "https://i.imgur.com/QbgZkFh.jpg",
             "secImage": "https://i.imgur.com/SQYXQF3.jpg",
@@ -27,7 +27,7 @@
         {
             "id": 51252158,
             "item": "Casaco Moletom Roxo",
-            "price": "R$57,00",
+            "price": 57.00,
             "color": "Roxo",
             "image": "https://i.imgur.com/HEHPcbt.jpg",
             "secImage": "https://i.imgur.com/R5O8jEl.jpg",
@@ -39,7 +39,7 @@
         {
             "id": 31584512,
             "item": "Calça Marsala",
-            "price": "R$42,00",
+            "price": 42.00,
             "color": "Marsala",
             "image": "https://i.imgur.com/j1ofFVh.jpg",
             "secImage": "https://i.imgur.com/qW9xGec.jpg",
@@ -51,7 +51,7 @@
         {
             "id": 31315482,
             "item": "Jaqueta Jeans",
-            "price": "R$75,00",
+            "price": 75.00,
             "color": "Jeans",
             "image": "https://i.imgur.com/r3MIXAC.jpg",
             "secImage": "https://i.imgur.com/BoKGTtp.jpg",
@@ -63,7 +63,7 @@
         {
             "id": 62313155,
             "item": "Macacão Para Bebês",
-            "price": "R$72,00",
+            "price": 72.00,
             "color": "Marrom",
             "image": "https://i.imgur.com/XNa57Dr.jpg",
             "secImage": "https://i.imgur.com/4wISyRM.jpg",
@@ -75,7 +75,7 @@
         {
             "id": 31546548,
             "item": "Blusa polo",
-            "price": "R$35,00",
+            "price": 35.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/jcUwEIj.jpg",
             "secImage": "https://i.imgur.com/5vAOIaz.jpg",
@@ -87,7 +87,7 @@
         {
             "id": 13134855,
             "item": "Blusa quadriculada",
-            "price": "R$32,00",
+            "price": 32.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/4sfFQ1E.jpg",
             "secImage": "https://i.imgur.com/OSL4vDQ.jpg",
@@ -99,7 +99,7 @@
         {
             "id": 98945212,
             "item": "Vestido com decote quadrado",
-            "price": "R$44,00",
+            "price": 44.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/iGtPByG.jpg",
             "secImage": "https://i.imgur.com/9300ZFi.jpg",
@@ -111,7 +111,7 @@
         {
             "id": 31549822,
             "item": "Blusa Mar",
-            "price": "R$35,00",
+            "price": 35.00,
             "color": "Branca",
             "image": "https://i.imgur.com/w7Kwd0k.jpg",
             "secImage": "https://i.imgur.com/iiFDB1y.jpg",
@@ -123,7 +123,7 @@
         {
             "id": 31484541,
             "item": "Blusa quadriculada Dylan",
-            "price": "R$42,00",
+            "price": 42.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/8t0aZ9C.jpg",
             "secImage": "https://i.imgur.com/bx2TPwO.jpg",
@@ -135,7 +135,7 @@
         {
             "id": 94545124,
             "item": "Camisa de botões",
-            "price": "R$42,00",
+            "price": 42.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/bB5621K.jpg",
             "secImage": "https://i.imgur.com/uK9N3Nq.jpg",
@@ -147,7 +147,7 @@
         {
             "id": 44644451,
             "item": "Macacão corpo todo",
-            "price": "R$42,00",
+            "price": 42.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/wYqbwYJ.png",
             "secImage": "https://i.imgur.com/kUfe2LA.png",
@@ -159,7 +159,7 @@
         {
             "id": 646484512,
             "item": "Conjunto de pijamas",
-            "price": "R$45,00",
+            "price": 45.00,
             "color": "Cinza",
             "image": "https://i.imgur.com/FMQhZxl.png",
             "secImage": "https://i.imgur.com/vqxrdVu.png",
@@ -171,7 +171,7 @@
         {
             "id": 54654625,
             "item": "Jaqueta Para Bebês",
-            "price": "R$72,00",
+            "price": 72.00,
             "color": "Branca",
             "image": "https://i.imgur.com/VK10FrN.jpg",
             "secImage": "https://i.imgur.com/PteHScS.jpg",
@@ -183,7 +183,7 @@
         {
             "id": 89612154,
             "item": "Camiseta Para Bebês",
-            "price": "R$32,00",
+            "price": 32.00,
             "color": "Branca",
             "image": "https://i.imgur.com/p3CguZB.jpg",
             "secImage": "https://i.imgur.com/vHgTJmS.jpg",
@@ -195,7 +195,7 @@
         {
             "id": 84654161,
             "item": "Camisa Patchwork",
-            "price": "R$55,00",
+            "price": 55.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/JcgDwnE.jpg",
             "secImage": "https://i.imgur.com/ynysIXD.jpg",
@@ -207,7 +207,7 @@
         {
             "id": 66412312,
             "item": "Jaqueta Clássica",
-            "price": "R$72,00",
+            "price": 72.00,
             "color": "Marrom",
             "image": "https://i.imgur.com/rcGw6EG.jpg",
             "secImage": "https://i.imgur.com/44mhxNS.jpg",
@@ -219,7 +219,7 @@
         {
             "id": 31354682,
             "item": "Pulôver de Tricô",
-            "price": "R$65,00",
+            "price": 65.00,
             "color": "Branca",
             "image": "https://i.imgur.com/txOMglB.jpg",
             "secImage": "https://i.imgur.com/RD6stUM.jpg",
@@ -231,7 +231,7 @@
         {
             "id": 54121354,
             "item": "Pulôver Leopardo",
-            "price": "R$75,00",
+            "price": 75.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/43jIymf.jpg",
             "secImage": "https://i.imgur.com/tJ8zagT.jpg",
@@ -243,7 +243,7 @@
         {
             "id": 22154855,
             "item": "Body de bebê",
-            "price": "R$35,00",
+            "price": 35.00,
             "color": "Estampado",
             "image": "https://i.imgur.com/S8KMaFz.jpg",
             "secImage": "https://i.imgur.com/CXSjuHW.jpg",
@@ -255,7 +255,7 @@
         {
             "id": 54845413,
             "item": "Body de bebê",
-            "price": "R$35,00",
+            "price": 35.00,
             "color": "Branco",
             "image": "https://i.imgur.com/BjRzEq7.jpg",
             "secImage": "https://i.imgur.com/gTFsix0.jpg",
@@ -267,7 +267,7 @@
         {
             "id": 54648525,
             "item": "Vestido",
-            "price": "R$85,00",
+            "price": 85.00,
             "color": "Roxo",
             "image": "https://i.imgur.com/ZfoKTgr.jpg",
             "secImage": "https://i.imgur.com/Hnvs2NA.jpg",
@@ -279,7 +279,7 @@
         {
             "id": 52154878,
             "item": "Calça para bebê",
-            "price": "R$55,00",
+            "price": 55.00,
             "color": "Preta",
             "image": "https://i.imgur.com/QkvjSHz.jpg",
             "secImage": "https://i.imgur.com/udUUTPR.jpg",

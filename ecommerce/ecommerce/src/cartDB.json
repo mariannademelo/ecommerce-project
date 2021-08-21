@@ -1,18 +1,11 @@
 {
   "cart": [
     {
-      "id": 54685215,
       "quantity": 1,
       "item": "Top de Tricô",
-      "price": "R$32,99",
-      "image": "https://i.imgur.com/QbgZkFh.jpg"
-    },
-    {
-      "id": 31546548,
-      "quantity": 1,
-      "item": "Blusa polo",
-      "price": "R$35,00",
-      "image": "https://i.imgur.com/jcUwEIj.jpg"
+      "price": 32.99,
+      "image": "https://i.imgur.com/QbgZkFh.jpg",
+      "id": 54685215
     }
   ]
 }

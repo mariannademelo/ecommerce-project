@@ -12,14 +12,17 @@ import { useState } from "react/cjs/react.development";
 function App() {
 
   const { error, data: allProducts, isPending } = useFetch('http://localhost:7000/all-products')
-  const [ cart, setCart ] = useState(false)
+  const [ cart, setCart ] = useState(false) 
+  const [ add, setAdd ] = useState()
 
   return (
     <Router>
       <div className="App">
         <NavBar 
         cart={cart} 
-        setCart={setCart}/>
+        setCart={setCart}
+        setAdd={setAdd}
+        add={add}/>
 
         <div className="content">
           <Switch>
@@ -40,7 +43,10 @@ function App() {
             {/* Detalhes do produto */}
 
             <Route path='/produtos/:id'>
-              <ProductDetails cart={cart} setCart={setCart} />
+              <ProductDetails 
+              cart={cart} 
+              setCart={setCart}
+              setAdd={setAdd}/>
             </Route>
 
             {/* P A R A   M E N I N A S */}
@@ -85,7 +91,7 @@ function App() {
               {allProducts && <GenderCollection title={'meninos'} gender={"meninos"} allProducts={allProducts}/>}
             </Route>
 
-            <Route path='/meninos/casacos'>
+            <Route path="/meninos/casacos">
               {allProducts && <ClothingCategory title={'casacos para meninos'} 
               gender={"meninos"} allProducts={allProducts} clothingCategory={"casaco"}/>}
             </Route>

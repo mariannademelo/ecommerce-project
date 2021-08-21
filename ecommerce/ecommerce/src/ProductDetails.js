@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "./LandingPage/useFetch";
 
-const ProductDetails = ({ cart, setCart }) => {
+const ProductDetails = ({ data, setData, setAdd }) => {
 
     const { id } = useParams()
     const { error, data: product, isPending } = useFetch('http://localhost:7000/all-products/' + id)
@@ -19,19 +19,21 @@ const ProductDetails = ({ cart, setCart }) => {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
-                    id: id,
                     quantity: quantity,
                     item: item,
                     price: price,
-                    image: image
+                    image: image,
+                    id: id
                 }),
             }).then(() => {
+                setAdd(false)
                 setLoading(false)
                 setInCart(true)
                 setTimeout(() => {
                     setInCart(false)
                     setReset(true)
                 }, 1000)
+                setAdd(true)
             })
         }, 2000)
     }
@@ -57,7 +59,7 @@ const ProductDetails = ({ cart, setCart }) => {
                 <div className="product-description">
                     <div className="main-content">
                         <h3>{ product.item }</h3>
-                        <h4>{ product.price }</h4>
+                        <h4>R${ product.price }</h4>
                     </div>
                     <div className='description'>
                         <h3>DESCRIÇÃO</h3>
@@ -89,17 +91,9 @@ const ProductDetails = ({ cart, setCart }) => {
                         }}
                         >ADICIONAR AO CARRINHO</button>}
                         {inCart &&
-                        <button 
-                        onClick={() => {
-                            addToCart(product.id, 1, product.item, product.price, product.image)
-                        }}
-                        >JÁ ESTÁ NO CARRINHO</button>}
+                        <button>JÁ ESTÁ NO CARRINHO</button>}
                         {loading &&
-                        <button 
-                        onClick={() => {
-                            addToCart(product.id, 1, product.item, product.price, product.image)
-                        }}
-                        >CARREGANDO...</button>}
+                        <button>CARREGANDO...</button>}
                     </div>
                 </div>
             </>

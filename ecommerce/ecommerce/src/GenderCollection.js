@@ -20,7 +20,7 @@ const GenderCollection = ({allProducts, title, gender}) => {
                 /></Link>
                 <div className='arrival-content'>
                     <span> { product.item } </span>
-                    <p> { product.price } </p> 
+                    <p> R${ product.price } </p> 
                 </div>
             </div>
             ))}

@@ -8,11 +8,11 @@ import { useEffect } from 'react/cjs/react.development';
 import useFetchCart from './useFetchCart';
 import useFetch from './LandingPage/useFetch';
 
-const NavBar = ({ cart, setCart }) => {
+const NavBar = ({ setAdd, cart, setCart, add }) => {
 
     const element = <FontAwesomeIcon icon={faChevronDown} />
     const [openCart, setOpenCart] = useState(false)
-    const { data: cartData } = useFetchCart('http://localhost:8000/cart', openCart)
+    const { data: cartData } = useFetchCart('http://localhost:8000/cart', add)
 
     return ( 
         <div className='navbar'>
@@ -31,6 +31,8 @@ const NavBar = ({ cart, setCart }) => {
                         </NavItemLogin>
 
                         {cartData && <NavItemCart
+                        setAdd={setAdd}
+                        add={add}
                         openCart={openCart}
                         setOpenCart={setOpenCart} 
                         cartData={cartData}
@@ -73,11 +75,9 @@ function NavItemLogin({name, icon}) {
     );
 }
 
-function NavItemCart({name, icon, cart, setCart, cartData, openCart, setOpenCart}) {
+function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart, setOpenCart}) {
 
     const [emptyCart, setEmptyCart] = useState()
-    
-    
 
     useEffect(() => {
         if (cartData.length === 0) {
@@ -87,20 +87,17 @@ function NavItemCart({name, icon, cart, setCart, cartData, openCart, setOpenCart
             setEmptyCart(false)
             setCart(true)
         }
-    }, [openCart])
-
-    console.log(emptyCart)
-    console.log(cart)
-    console.log(cartData.length)
-
+    }, [cartData])
 
     return (
         <>
-            <span onClick={() => openCart === false ? setOpenCart(true) : setOpenCart(false)}>{ name }</span>
+            <span 
+            onMouseOver={() => setOpenCart(true)}
+            onClick={() => openCart === false ? setOpenCart(true) : setOpenCart(false)}>{ name }</span>
             <span className='icon-arrow'>{ icon }</span>
             
             <div 
-            onMouseLeave={() => setOpenCart(false)}
+            // onMouseLeave={() => setOpenCart(false)}
             className={openCart === false ? "inactive" : 'cart'}>
                 {emptyCart && 
                 <EmptyCart 
@@ -110,7 +107,11 @@ function NavItemCart({name, icon, cart, setCart, cartData, openCart, setOpenCart
                 setEmptyCart={setEmptyCart} />}
 
                 {cart && 
-                <Cart 
+                <Cart
+                setAdd={setAdd}
+                add={add}
+                openCart={openCart}
+                setOpenCart={setOpenCart}
                 cartData={cartData}
                 cart={cart} 
                 setCart={setCart} 
@@ -121,45 +122,115 @@ function NavItemCart({name, icon, cart, setCart, cartData, openCart, setOpenCart
     );
 }
 
-function Cart({ cart, emptyCart, setEmptyCart, setCart, cartData }) {
-
-    const { id } = useParams();
-    const { data: cartProduct, error, isPending } = useFetch('http://localhost:8000/cart/');
+function Cart({ setAdd, add, cart, emptyCart, setEmptyCart, setCart, cartData, setOpenCart }) {
     
-    const removeFromCart = () => {
-        fetch('http://localhost:8000/cart/' + cartProduct.id, {
+    const [ quantity, setQuantity ] = useState(1)
+    const [ priceItem, setPriceItem ] = useState(0)
+    const [ data, setData ] = useState(cartData)
+    
+    return (
+        <div className='cart-ctn'>
+            {data && <CartItems 
+            setAdd={setAdd}
+            add={add}
+            setData={setData}
+            data={data}
+            cartData={cartData} 
+            setPriceItem={setPriceItem}
+            setQuantity={setQuantity}/>}
+        </div>
+    );
+}
+
+function CartItems({ setAdd, setData, data, setQuantity, setPriceItem, cartData }) {
+
+    const removeFromCart = (id) => {
+        fetch('http://localhost:8000/cart/' + id, {
             method: 'DELETE'
+        }).then(() => {
+            setAdd === false ? setAdd(true) : setAdd(false)
         })
     }
 
+    const totalPrice = () => {
+        let total = 0;
+        for (let i = 0; i < data.length; i++) {
+            total += data[i].price
+        }
+        return total.toFixed(2)
+    }
+
+
+    let price = totalPrice()
+
+    const addQuantity = (ind) => {
+        data[ind].quantity += 1
+        setQuantity(data[ind].quantity)
+    }
     
-    return(
+    const decreaseQuantity = (ind) => {
+        data[ind].quantity -= 1
+        setQuantity(data[ind].quantity)
+    }
+
+    const totalProductPrice = (ind) => {
+        data[ind].price += cartData[ind].price
+        setPriceItem(data[ind].price)
+    }
+    
+    const decreaseTotalProductPrice = (ind) => {
+        data[ind].price -= cartData[ind].price
+        setPriceItem(data[ind].price)
+    }
+
+    const checking = (ind) => {
+        console.log(data[ind].price)
+        console.log(cartData[ind].price)
+        console.log(data)
+        console.log(cartData)
+    }
+
+    return (
         <>
-            <div className='cart-ctn'>
-                {cartData.map(product => (
-                    <>
-                    <div className="main-cart">
-                        <div className='cart-product'>
-                            <img src={product.image} alt="" />
-                            <div>
-                                <p>{ product.item }</p>
-                                <p>{ product.price }</p>
-                                <p>Tamanho: </p>
-                                <p onClick={() => console.log(cartProduct.id)}>REMOVER</p>
-                            </div>
-                            <div>Quant</div>
-                            <div>{product.price}</div>
+            {cartData.map((product, ind) => (
+                <>
+                <div className="main-cart">
+                    <div className='cart-product'>
+                        <img src={product.image} alt="" />
+                        <div>
+                            <p>{ product.item }</p>
+                            <p>R${ product.price }</p>
+                            <p>Tamanho: </p>
+                            <p onClick={() => removeFromCart(product.id)}>REMOVER</p>
                         </div>
+                        <div className='quantity'>
+                            <span
+                            onClick={() => {
+                                decreaseQuantity(ind)
+                                decreaseTotalProductPrice(ind)
+                            }}
+                            >-</span>
+                            <input value={product.quantity}/>
+                            <span
+                            onClick={() => {
+                                addQuantity(ind)
+                                totalProductPrice(ind)
+                            }}
+                            >+</span>
+                        </div>
+                        <div
+                        onClick={() => checking(ind)}
+                        >R${product.price}</div>
                     </div>
-                    </>
-                ))}
-                <div className='total-price'>
-                    <span>Total</span>
-                    <span>Em reais</span>
                 </div>
-                <div className='checkout'>
-                    <button>Finalizar Compra</button>
-                </div>
+                </>
+            ))}
+            <div className='total-price'>
+                <span>Total</span>
+                <span>R${price}</span>
+            </div>
+            <div className='checkout'>
+                <button>Finalizar Compra</button>
             </div>
         </>
     );
@@ -192,8 +263,6 @@ function Login() {
     );
 }
 
-
-//  Esses Componentes criam o dropdown menu no desktop
 
 function Menu() {
     return(
@@ -271,8 +340,6 @@ function SubNav(props) {
     );
 }
 
-
-// Function to display responsive menu
 function ToggleMenu() {
 
     const [menu, setMenu] = useState(false)
