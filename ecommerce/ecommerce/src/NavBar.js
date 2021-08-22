@@ -97,7 +97,7 @@ function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart
             <span className='icon-arrow'>{ icon }</span>
             
             <div 
-            // onMouseLeave={() => setOpenCart(false)}
+            onMouseLeave={() => setOpenCart(false)}
             className={openCart === false ? "inactive" : 'cart'}>
                 {emptyCart && 
                 <EmptyCart 
@@ -126,72 +126,27 @@ function Cart({ setAdd, add, cart, emptyCart, setEmptyCart, setCart, cartData, s
     
     const [ quantity, setQuantity ] = useState(1)
     const [ priceItem, setPriceItem ] = useState(0)
-    const [ data, setData ] = useState(cartData)
-    
-    return (
-        <div className='cart-ctn'>
-            {data && <CartItems 
-            setAdd={setAdd}
-            add={add}
-            setData={setData}
-            data={data}
-            cartData={cartData} 
-            setPriceItem={setPriceItem}
-            setQuantity={setQuantity}/>}
-        </div>
-    );
-}
-
-function CartItems({ setAdd, setData, data, setQuantity, setPriceItem, cartData }) {
 
     const removeFromCart = (id) => {
         fetch('http://localhost:8000/cart/' + id, {
             method: 'DELETE'
         }).then(() => {
-            setAdd === false ? setAdd(true) : setAdd(false)
+            add === true ? setAdd(false) : setAdd(true)
         })
     }
 
     const totalPrice = () => {
         let total = 0;
-        for (let i = 0; i < data.length; i++) {
-            total += data[i].price
+        for (let i = 0; i < cartData.length; i++) {
+            total += cartData[i].price
         }
         return total.toFixed(2)
     }
 
-
     let price = totalPrice()
-
-    const addQuantity = (ind) => {
-        data[ind].quantity += 1
-        setQuantity(data[ind].quantity)
-    }
     
-    const decreaseQuantity = (ind) => {
-        data[ind].quantity -= 1
-        setQuantity(data[ind].quantity)
-    }
-
-    const totalProductPrice = (ind) => {
-        data[ind].price += cartData[ind].price
-        setPriceItem(data[ind].price)
-    }
-    
-    const decreaseTotalProductPrice = (ind) => {
-        data[ind].price -= cartData[ind].price
-        setPriceItem(data[ind].price)
-    }
-
-    const checking = (ind) => {
-        console.log(data[ind].price)
-        console.log(cartData[ind].price)
-        console.log(data)
-        console.log(cartData)
-    }
-
     return (
-        <>
+        <div className='cart-ctn'>
             {cartData.map((product, ind) => (
                 <>
                 <div className="main-cart">
@@ -199,28 +154,12 @@ function CartItems({ setAdd, setData, data, setQuantity, setPriceItem, cartData 
                         <img src={product.image} alt="" />
                         <div>
                             <p>{ product.item }</p>
+                            <p>Quantidade: 1</p>
                             <p>R${ product.price }</p>
-                            <p>Tamanho: </p>
+                            <p>Tamanho: { product.size }</p>
                             <p onClick={() => removeFromCart(product.id)}>REMOVER</p>
                         </div>
-                        // <div className='quantity'>
-                        //     <span
-                        //     onClick={() => {
-                        //         decreaseQuantity(ind)
-                        //         decreaseTotalProductPrice(ind)
-                        //     }}
-                        //     >-</span>
-                        //     <input value={product.quantity}/>
-                        //     <span
-                        //     onClick={() => {
-                        //         addQuantity(ind)
-                        //         totalProductPrice(ind)
-                        //     }}
-                        //     >+</span>
-                        // </div>
-                        <div
-                        onClick={() => checking(ind)}
-                        >R${product.price}</div>
+                        <div>R${product.price}</div>
                     </div>
                 </div>
                 </>
@@ -230,9 +169,10 @@ function CartItems({ setAdd, setData, data, setQuantity, setPriceItem, cartData 
                 <span>R${price}</span>
             </div>
             <div className='checkout'>
+                <button>Ver Carrinho</button>
                 <button>Finalizar Compra</button>
             </div>
-        </>
+        </div>
     );
 }
 

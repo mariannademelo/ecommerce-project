@@ -7,11 +7,14 @@ const ProductDetails = ({ data, setData, setAdd }) => {
     const { id } = useParams()
     const { error, data: product, isPending } = useFetch('http://localhost:7000/all-products/' + id)
     const { data: cartData } = useFetch('http://localhost:8000/cart')
+    const [ size, setSize ] = useState()
+    
+    // hooks to display button states
     const [ loading, setLoading ] = useState(false)
     const [ inCart, setInCart ] = useState(false)
     const [ reset, setReset ] = useState(true)
 
-    const addToCart = (id, quantity, item, price, image) => {
+    const addToCart = (quantity, item, price, image, size) => {
         setLoading(true)
         setReset(false)
         setTimeout(() => {
@@ -23,7 +26,7 @@ const ProductDetails = ({ data, setData, setAdd }) => {
                     item: item,
                     price: price,
                     image: image,
-                    id: id
+                    size: size
                 }),
             }).then(() => {
                 setAdd(false)
@@ -38,6 +41,12 @@ const ProductDetails = ({ data, setData, setAdd }) => {
         }, 2000)
     }
 
+    const [ mainImg, setMainImg ] = useState(true)
+
+    const changeImg = () => {
+        mainImg === true ? setMainImg(false) : setMainImg(true)
+    }
+
     return ( 
         <div className="product-container">
         <div className='product-details'>
@@ -47,12 +56,16 @@ const ProductDetails = ({ data, setData, setAdd }) => {
             <>
                 <div className="product-images">
                     <div className="main-image">
-                        <img src={product.image} alt="" />
+                        <img src={mainImg === true ? product.image : product.secImage} alt="" />
                     </div>
                     <div className="image-carousel">
                         <ul>
-                            <li><img src={product.image} alt="" /></li>
-                            <li><img src={product.secImage} alt="" /></li>
+                            <li><img 
+                            onClick={() => changeImg()} 
+                            src={product.image} alt="" /></li>
+                            <li><img 
+                            onClick={() => changeImg()} 
+                            src={product.secImage} alt="" /></li>
                         </ul>
                     </div>
                 </div>
@@ -73,21 +86,28 @@ const ProductDetails = ({ data, setData, setAdd }) => {
                         <p>Engomar em temperatura média</p>
                     </div>
                     <div className="size">
-                        <h3>TAMANHOS</h3>
-                        <div className="size-chart">
-                            <Size number={1} />
-                            <Size number={2} />
-                            <Size number={3} />
-                            <Size number={4} />
-                            <Size number={5} />
-                            <Size number={6} />
+                        <h3>TAMANHO</h3>
+                        <div className="size-ctn">
+                            <select 
+                            value={size}
+                            onChange={(e) => setSize(e.target.value)}
+                            className='size-chart'>
+
+                                <option value="0">Escolha o tamanho:</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
                         </div>
                     </div>
                     <div className='buy-purchase'>
                         {reset &&
                         <button 
                         onClick={() => {
-                            addToCart(product.id, 1, product.item, product.price, product.image)
+                            addToCart(1, product.item, product.price, product.image, size)
                         }}
                         >ADICIONAR AO CARRINHO</button>}
                         {inCart &&

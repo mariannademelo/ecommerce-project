@@ -1,11 +1,3 @@
 {
-  "cart": [
-    {
-      "quantity": 1,
-      "item": "Top de Tricô",
-      "price": 32.99,
-      "image": "https://i.imgur.com/QbgZkFh.jpg",
-      "id": 54685215
-    }
-  ]
+  "cart": []
 }
