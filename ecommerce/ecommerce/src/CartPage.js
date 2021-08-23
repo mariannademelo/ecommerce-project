@@ -6,6 +6,7 @@ const CartPage = ({ items }) => {
 	const [ quant, setQuant ] = useState(1)
 	const [ q, setQ ] = useState(items)
 	const [ state, setState ] = useState()
+	const [ priceItem, setPriceItem ] = useState(0)
 
 	const totalPrice = () => {
         let total = 0;
@@ -16,6 +17,11 @@ const CartPage = ({ items }) => {
     }
 
     let price = totalPrice()
+
+    const totalProductPrice = (ind) => {
+        q[ind].price += items[ind].price
+        setPriceItem(q[ind].price)
+    }
 
 	return (
 		<div className='cart-pg_ctn'>
@@ -49,13 +55,33 @@ export default CartPage;
 
 function CartItems({ items, quant, q, setQuant, price }) {
 
+	// const addQuantity = (ind) => {
+ //        data[ind].quantity += 1
+ //        setQuantity(data[ind].quantity)
+ //    }
+    
+ //    const decreaseQuantity = (ind) => {
+ //        data[ind].quantity -= 1
+ //        setQuantity(data[ind].quantity)
+ //    }
+
+ //    const totalProductPrice = (ind) => {
+ //        data[ind].price += cartData[ind].price
+ //        setPriceItem(data[ind].price)
+ //    }
+    
+ //    const decreaseTotalProductPrice = (ind) => {
+ //        data[ind].price -= cartData[ind].price
+ //        setPriceItem(data[ind].price)
+ //    }
+
 	const incrementQuant = (ind) => {
-		q[ind].quantity += items[ind].quantity
+		q[ind].quantity += 1
+		setQuant(q[ind].quantity)
 		console.log(q[ind].quantity)
 		console.log(items[ind].quantity)
 		console.log(q)
 		console.log(items)
-		console.log(price)
 	}
 
 	return (
