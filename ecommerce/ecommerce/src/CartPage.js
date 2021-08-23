@@ -1,7 +1,11 @@
 import useFetch from './LandingPage/useFetch';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const CartPage = ({ items }) => {
+
+	const [ quant, setQuant ] = useState(1)
+	const [ q, setQ ] = useState(items)
+	const [ state, setState ] = useState()
 
 	const totalPrice = () => {
         let total = 0;
@@ -22,7 +26,12 @@ const CartPage = ({ items }) => {
 					<span>QUANT.</span>
 					<span>PREÇO</span>
 				</div>
-				{items && <CartItems items={items}/>}
+				{items && <CartItems 
+				items={items}
+				quant={quant}
+				setQuant={setQuant}
+				q={q}
+				price={price}/>}
 			</div>
 			<div className='cart-pg_side'>
 				<div>
@@ -38,13 +47,20 @@ const CartPage = ({ items }) => {
 
 export default CartPage;
 
-function CartItems({ items }) {
+function CartItems({ items, quant, q, setQuant, price }) {
 
-	const [ quant, setQuant ] = useState(1)
+	const incrementQuant = (ind) => {
+		q[ind].quantity += items[ind].quantity
+		console.log(q[ind].quantity)
+		console.log(items[ind].quantity)
+		console.log(q)
+		console.log(items)
+		console.log(price)
+	}
 
 	return (
 		<>
-			{items.map((product, ind) => (
+			{q.map((product, ind) => (
 				<div className='cart-pg_item'>
 					<div className='cart-pg_img'>
 						<img src={ product.image } alt=""/>
@@ -60,7 +76,7 @@ function CartItems({ items }) {
 					key={ind}	
 					type='number'
 					value={ quant }
-					onChange={(e) => setQuant(e.target.value)}
+					onChange={(e) => setQuant(incrementQuant(ind))}
 					/>
 					<div>R${ product.price }</div>
 					<div className='cart-item_del'> X </div>
