@@ -97,7 +97,7 @@ function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart
             <span className='icon-arrow'>{ icon }</span>
             
             <div 
-            onMouseLeave={() => setOpenCart(false)}
+            // onMouseLeave={() => setOpenCart(false)}
             className={openCart === false ? "inactive" : 'cart'}>
                 {emptyCart && 
                 <EmptyCart 
@@ -169,7 +169,7 @@ function Cart({ setAdd, add, cart, emptyCart, setEmptyCart, setCart, cartData, s
                 <span>R${price}</span>
             </div>
             <div className='checkout'>
-                <button>Ver Carrinho</button>
+                <a href="/carrinho"><button>Ver Carrinho</button></a>
                 <button>Finalizar Compra</button>
             </div>
         </div>

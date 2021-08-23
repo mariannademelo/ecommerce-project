@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import LandingPage from "./LandingPage/LandingPage";
 import useFetch from "./LandingPage/useFetch";
 import NavBar from "./NavBar";
+import CartPage from "./CartPage"
 import Collections from "./Collections";
 import ProductDetails from "./ProductDetails";
 import GenderCollection from "./GenderCollection";
@@ -14,6 +15,7 @@ function App() {
   const { error, data: allProducts, isPending } = useFetch('http://localhost:7000/all-products')
   const [ cart, setCart ] = useState(false) 
   const [ add, setAdd ] = useState()
+  const { data: cartItems } = useFetch('http://localhost:8000/cart')
 
   return (
     <Router>
@@ -140,6 +142,12 @@ function App() {
             <Route path='/bebes/macacoes'>
               {allProducts && <ClothingCategory title={'macacões para bebes'} 
               gender={"bebes"} allProducts={allProducts} clothingCategory={"macacão"}/>}
+            </Route>
+
+            /*Cart Page*/
+
+            <Route path='/carrinho'>
+              {cartItems && <CartPage items={cartItems}/>}
             </Route>
 
           </Switch>

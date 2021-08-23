@@ -14,7 +14,7 @@ const ProductDetails = ({ data, setData, setAdd }) => {
     const [ inCart, setInCart ] = useState(false)
     const [ reset, setReset ] = useState(true)
 
-    const addToCart = (quantity, item, price, image, size) => {
+    const addToCart = (quantity, item, price, image, size, itemCode) => {
         setLoading(true)
         setReset(false)
         setTimeout(() => {
@@ -26,7 +26,8 @@ const ProductDetails = ({ data, setData, setAdd }) => {
                     item: item,
                     price: price,
                     image: image,
-                    size: size
+                    size: size,
+                    itemCode: itemCode
                 }),
             }).then(() => {
                 setAdd(false)
@@ -107,7 +108,7 @@ const ProductDetails = ({ data, setData, setAdd }) => {
                         {reset &&
                         <button 
                         onClick={() => {
-                            addToCart(1, product.item, product.price, product.image, size)
+                            addToCart(1, product.item, product.price, product.image, size, product.id)
                         }}
                         >ADICIONAR AO CARRINHO</button>}
                         {inCart &&

@@ -1,3 +1,28 @@
 {
-  "cart": []
+  "cart": [
+    {
+      "quantity": 1,
+      "item": "Blusa polo",
+      "price": 35,
+      "image": "https://i.imgur.com/jcUwEIj.jpg",
+      "itemCode": 31546548,
+      "id": 1
+    },
+    {
+      "quantity": 1,
+      "item": "Calça Marsala",
+      "price": 42,
+      "image": "https://i.imgur.com/j1ofFVh.jpg",
+      "itemCode": 31584512,
+      "id": 2
+    },
+    {
+      "quantity": 1,
+      "item": "Blusa quadriculada",
+      "price": 32,
+      "image": "https://i.imgur.com/4sfFQ1E.jpg",
+      "itemCode": 13134855,
+      "id": 3
+    }
+  ]
 }
