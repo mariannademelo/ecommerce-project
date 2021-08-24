@@ -4,11 +4,10 @@ import { useHistory } from 'react-router-dom';
 
 const CartPage = ({ items }) => {
 
-	const [ quant, setQuant ] = useState(1)
-	const [ q, setQ ] = useState(items)
 	const [ state, setState ] = useState()
 	const [ priceItem, setPriceItem ] = useState(0)
 	const [ price, setPrice ] = useState(0)
+	const [ empty, setEmpty ] = useState()
 
 	const totalPrice = () => {
         let total = 0;
@@ -20,6 +19,7 @@ const CartPage = ({ items }) => {
 
     useEffect(() =>{
     	 setPrice(totalPrice)
+    	 items.length === 0 ? setEmpty(true) : setEmpty(false)
     }, [])
 
     const updatePrice = () => {
@@ -39,12 +39,10 @@ const CartPage = ({ items }) => {
 					<span>QUANT.</span>
 					<span>PREÇO</span>
 				</div>
+				{empty && <EmptyCart />}
 				{items && <CartItems
 				updatePrice={updatePrice} 
 				items={items}
-				quant={quant}
-				setQuant={setQuant}
-				q={q}
 				price={price}/>}
 			</div>
 			<div className='cart-pg_side'>
@@ -60,7 +58,13 @@ const CartPage = ({ items }) => {
 
 export default CartPage;
 
-function CartItems({ items, quant, q, setQuant, price, updatePrice }) {
+function EmptyCart() {
+	return(
+		<h3 className='cart-pg_empty'>Seu carrinho está vazio!!</h3>
+	);
+}
+
+function CartItems({ items, price, updatePrice }) {
 
 	const removeFromCart = (id) => {
         fetch('http://localhost:8000/cart/' + id, {

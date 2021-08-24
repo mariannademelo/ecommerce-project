@@ -1,22 +1,3 @@
 {
-  "cart": [
-    {
-      "quantity": 5,
-      "item": "Jaqueta Jeans",
-      "price": 75,
-      "image": "https://i.imgur.com/r3MIXAC.jpg",
-      "itemCode": 31315482,
-      "id": 2,
-      "priceToUpdate": 375
-    },
-    {
-      "quantity": 4,
-      "item": "Blusa polo",
-      "price": 35,
-      "image": "https://i.imgur.com/jcUwEIj.jpg",
-      "itemCode": 31546548,
-      "id": 3,
-      "priceToUpdate": 140
-    }
-  ]
+  "cart": []
 }
