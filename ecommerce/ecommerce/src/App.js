@@ -147,7 +147,8 @@ function App() {
             /*Cart Page*/
 
             <Route path='/carrinho'>
-              {cartItems && <CartPage items={cartItems}/>}
+              {cartItems && <CartPage 
+              items={cartItems}/>}
             </Route>
 
           </Switch>

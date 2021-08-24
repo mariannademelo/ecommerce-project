@@ -1,5 +1,6 @@
 import useFetch from './LandingPage/useFetch';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const CartPage = ({ items }) => {
 
@@ -7,20 +8,26 @@ const CartPage = ({ items }) => {
 	const [ q, setQ ] = useState(items)
 	const [ state, setState ] = useState()
 	const [ priceItem, setPriceItem ] = useState(0)
+	const [ price, setPrice ] = useState(0)
 
 	const totalPrice = () => {
         let total = 0;
         for (let i = 0; i < items.length; i++) {
-            total += items[i].price
+            total += items[i].price * items[i].quantity
         }
         return total.toFixed(2)
     }
 
-    let price = totalPrice()
+    useEffect(() =>{
+    	 setPrice(totalPrice)
+    }, [])
 
-    const totalProductPrice = (ind) => {
-        q[ind].price += items[ind].price
-        setPriceItem(q[ind].price)
+    const updatePrice = () => {
+ 		let total = 0
+ 		for (let i = 0; i < items.length; i++) {
+ 			total += items[i].price * items[i].quantity
+ 		}
+ 		setPrice(total)
     }
 
 	return (
@@ -32,7 +39,8 @@ const CartPage = ({ items }) => {
 					<span>QUANT.</span>
 					<span>PREÇO</span>
 				</div>
-				{items && <CartItems 
+				{items && <CartItems
+				updatePrice={updatePrice} 
 				items={items}
 				quant={quant}
 				setQuant={setQuant}
@@ -44,7 +52,6 @@ const CartPage = ({ items }) => {
 					<span>TOTAL:</span>
 					<span>R${ price }</span>
 				</div>
-				<button>ATUALIZE O CARRINHO</button>
 				<button>FINALIZAR A COMPRA</button>
 			</div>
 		</div>
@@ -53,40 +60,49 @@ const CartPage = ({ items }) => {
 
 export default CartPage;
 
-function CartItems({ items, quant, q, setQuant, price }) {
+function CartItems({ items, quant, q, setQuant, price, updatePrice }) {
 
-	// const addQuantity = (ind) => {
- //        data[ind].quantity += 1
- //        setQuantity(data[ind].quantity)
- //    }
-    
- //    const decreaseQuantity = (ind) => {
- //        data[ind].quantity -= 1
- //        setQuantity(data[ind].quantity)
- //    }
+	const removeFromCart = (id) => {
+        fetch('http://localhost:8000/cart/' + id, {
+            method: 'DELETE'
+        }).then(() => {
+        	window.location.reload()
+        	window.scrollTo(0, 0)
+        })
+    }
 
- //    const totalProductPrice = (ind) => {
- //        data[ind].price += cartData[ind].price
- //        setPriceItem(data[ind].price)
- //    }
-    
- //    const decreaseTotalProductPrice = (ind) => {
- //        data[ind].price -= cartData[ind].price
- //        setPriceItem(data[ind].price)
- //    }
 
-	const incrementQuant = (ind) => {
-		q[ind].quantity += 1
-		setQuant(q[ind].quantity)
-		console.log(q[ind].quantity)
+    const updateCart = (id, value, price) => {
+    	fetch('http://localhost:8000/cart/' + id, {
+                method: 'PATCH',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({quantity: value, priceToUpdate: price})
+            }).then(() => {
+        		updatePrice()
+        		window.location.reload()
+        		window.scrollTo(0, 0)
+            })
+    }
+
+    const incrementQuant = (ind) => {
+		items[ind].quantity += 1
 		console.log(items[ind].quantity)
-		console.log(q)
-		console.log(items)
+	}
+
+	let item = 0;
+	const updateItemPrice = (ind) => {
+		item = items[ind].price * items[ind].quantity
+ 		console.log(item)
+	}
+
+	const decrementQuant = (ind) => {
+		items[ind].quantity -= 1
+		console.log(items[ind].quantity)
 	}
 
 	return (
 		<>
-			{q.map((product, ind) => (
+			{items.map((product, ind) => (
 				<div className='cart-pg_item'>
 					<div className='cart-pg_img'>
 						<img src={ product.image } alt=""/>
@@ -96,15 +112,33 @@ function CartItems({ items, quant, q, setQuant, price }) {
 						<a href={`/produtos/${product.itemCode}`}>
 						{ product.item }</a></p>
 						<p>R${ product.price }</p>
-						<p>Remover</p>
+						<p
+						onClick={() => removeFromCart(product.id)}
+						>Remover</p>
 					</div>
-					<input 
-					key={ind}	
-					type='number'
-					value={ quant }
-					onChange={(e) => setQuant(incrementQuant(ind))}
-					/>
-					<div>R${ product.price }</div>
+					<div className='cart-item_qty'>
+						<span
+						onClick={() => {
+						decrementQuant(ind)
+						updateItemPrice(ind)
+						updateCart(product.id, product.quantity, item)
+						}}
+						>-</span>
+						<input 
+						key={ind}	
+						type='number'
+						value={ product.quantity }
+						// onChange={(e) => {
+						// 	setQuant(incrementQuant(e))
+						// }}
+						/>
+						<span onClick={() => {
+						incrementQuant(ind)
+						updateItemPrice(ind)
+						updateCart(product.id, product.quantity, item)
+						}}>+</span>
+					</div>
+					<div>R${ product.priceToUpdate }</div>
 					<div className='cart-item_del'> X </div>
 				</div>
 			))}

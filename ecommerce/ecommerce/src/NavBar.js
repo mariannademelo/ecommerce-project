@@ -97,7 +97,7 @@ function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart
             <span className='icon-arrow'>{ icon }</span>
             
             <div 
-            // onMouseLeave={() => setOpenCart(false)}
+            onMouseLeave={() => setOpenCart(false)}
             className={openCart === false ? "inactive" : 'cart'}>
                 {emptyCart && 
                 <EmptyCart 
@@ -138,7 +138,7 @@ function Cart({ setAdd, add, cart, emptyCart, setEmptyCart, setCart, cartData, s
     const totalPrice = () => {
         let total = 0;
         for (let i = 0; i < cartData.length; i++) {
-            total += cartData[i].price
+            total += cartData[i].price * cartData[i].quantity
         }
         return total.toFixed(2)
     }
@@ -153,13 +153,14 @@ function Cart({ setAdd, add, cart, emptyCart, setEmptyCart, setCart, cartData, s
                     <div className='cart-product'>
                         <img src={product.image} alt="" />
                         <div>
-                            <p>{ product.item }</p>
-                            <p>Quantidade: 1</p>
+                            <p><a href={`/produtos/${product.itemCode}`}>
+                            { product.item }</a></p>
+                            <p>Quant.: { product.quantity }</p>
                             <p>R${ product.price }</p>
                             <p>Tamanho: { product.size }</p>
                             <p onClick={() => removeFromCart(product.id)}>REMOVER</p>
                         </div>
-                        <div>R${product.price}</div>
+                        <div>R${product.priceToUpdate}</div>
                     </div>
                 </div>
                 </>
