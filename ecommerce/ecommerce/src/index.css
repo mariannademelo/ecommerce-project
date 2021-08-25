@@ -53,6 +53,11 @@ body {
 .fa-shopping-bag {
   font-size: 21px;
   cursor: pointer;
+  pointer-events: none;
+}
+
+.toggle-nav_login {
+  cursor: pointer;
 }
 
 .navbar nav {
@@ -1471,6 +1476,7 @@ body {
 
   .fa-shopping-bag {
     font-size: 25px;
+    pointer-events: initial;
   }
 
   .cart {
@@ -1547,6 +1553,10 @@ body {
     animation: slideLeft .2s;
   }
 
+  .side-cart_close {
+    cursor: pointer;
+  }
+
   @keyframes slideLeft {
     0% {width: 0px;}
     15% {width: 50px;}
@@ -1556,6 +1566,15 @@ body {
     80% {width: 250px;}
     95% {width: 300px;}
     100% {width: 389px;}
+  }
+
+  .side-cart_empty {
+    padding: 62px 0;
+  }
+
+  .side-cart_empty h3 {
+    font-weight: 400;
+    font-size: 24px;
   }
 
   .side-cart_items {
