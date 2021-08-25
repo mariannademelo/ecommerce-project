@@ -143,7 +143,6 @@ function CartItems({ items, price, updatePrice }) {
 						}}>+</span>
 					</div>
 					<div>R${ product.priceToUpdate }</div>
-					<div className='cart-item_del'> X </div>
 				</div>
 			))}
 

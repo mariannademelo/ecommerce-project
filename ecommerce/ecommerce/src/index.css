@@ -50,7 +50,13 @@ body {
   display: none;
 }
 
+.fa-shopping-bag {
+  font-size: 21px;
+  cursor: pointer;
+}
+
 .navbar nav {
+  box-shadow: 0 1px 10px 1px rgb(138 138 138 / 21%);
   width: 99vw;
   height: 10em;
   display: flex;
@@ -118,15 +124,17 @@ body {
   width: 100%;
 }
 
-.nav-header span {
+.nav-header_title {
   color: #292929;
-  cursor: pointer;
   font-family: 'Abril Fatface';
   font-size: 2.5em;
   letter-spacing: 0.8px;
   cursor: pointer;
 }
 
+.nav-header_search {
+  width: 121px;
+}
 
 .nav-header {
   align-items: center;
@@ -136,20 +144,31 @@ body {
 }
 
 .nav-content {
-  width: 16%;
+  width: 115px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .nav-content span {
   font-family: 'Noto Sans JP';
-  font-size: 0.6em;
+  font-size: 0.8em;
   font-weight: 400;
   letter-spacing: 0px;
 }
 
 .nav-content span:hover {
   color: rgb(119, 116, 116);
+}
+
+.fa-search {
+  font-size: 21px;
+  transition: all .4s ease;
+  cursor: pointer;
+}
+
+.fa-search:hover {
+  color:  rgb(0 0 0 / 43%);
 }
 
 .search-bar {
@@ -255,7 +274,7 @@ body {
   font-family: 'Noto Sans JP';
   width: 99%;
   border: 0;
-  background: rgb(86 94 142 / 85%);
+  background: rgb(86 94 111);;
   height: 5vh;
   font-weight: 400;
   color: rgb(255 255 255);
@@ -284,7 +303,7 @@ body {
   flex-direction: column;
   position: absolute;
   z-index: 2;
-  width: 32vw;
+  width: 363px;
   top: 98px;
 }
 
@@ -456,12 +475,7 @@ body {
 
 .cart-pg_details span:nth-of-type(2) {
   position: relative;
-  left: 17%;
-}
-
-.cart-pg_details span:nth-of-type(3) {
-  position: relative;
-  right: 10%;
+  left: 21%;
 }
 
 .cart-pg_side {
@@ -517,6 +531,10 @@ body {
   cursor: pointer;
 }
 
+.cart-item_qty span:hover {
+  color:  rgb(0 0 0 / 50%);
+}
+
 .cart-item_qty input {
   pointer-events: none;
   border: 0.01em solid rgb(0 0 0 / 38%);
@@ -529,15 +547,13 @@ body {
 }
 
 .cart-pg_img img{
-  width: 12vw;
-  height: 25vh;
+  width: 134px;
+  height: 171px;
   object-fit: cover;
 }
 
 .cart-item_details {
   display: flex;
-  position: relative;
-  right: 32px;
   flex-direction: column;
   height: 109px;
   justify-content: space-between;
@@ -1283,6 +1299,29 @@ body {
   width: 99vw;
   height: 101vh;
   top: 0;
+  left: 0;
+}
+
+.fadeIn {
+  animation: fadeInAnimation .5s;
+}
+
+@keyframes fadeInAnimation {
+  from { opacity: 0; }
+  to {opacity:  1;}
+}
+
+.toggle-menu_login {
+  background: rgb(86 94 111);
+  color: white;
+  border: 0;
+  padding: 16px;
+  position: relative;
+  top: 30px;
+  font-family: inherit;
+  width: 140px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .toggle-menu ul {
@@ -1304,6 +1343,7 @@ body {
   font-size: 19px;
   font-family: 'Noto Sans JP';
   color: rgb(0 0 0 / 61%);
+  cursor: pointer;
 }
 
 .toggle-menu_items {
@@ -1320,6 +1360,72 @@ body {
   color: rgb(0 0 0 / 80%);
 }
 
+/* Search Container  */
+
+.search-ctn {
+  padding: 30px 60px;
+  position: fixed;
+  z-index: 5;
+  width: 88vw;
+  height: 27vh;
+  background: white;
+  left: 0;
+  top: 0;
+  animation: slideDown .1s;
+}
+
+@keyframes slideDown {
+  0% {height: 0vh;}
+  15% {height: 5vh;}
+  30% {height: 10vh}
+  50% {height: 15vh;}
+  75% {height: 20vh;}
+  100% {height: 25vh;}
+}
+
+.search-ctn h4 {
+  position: relative;
+  left: 83vw;
+  cursor: pointer;
+}
+
+.search-ctn h5 {
+  margin-bottom: 27px;
+  font-size: 11px;
+  color: rgb(0 0 0 / 40%);
+}
+
+.search-ctn input {
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  height: 42%;
+  border: 0;
+  font-size: 32px;
+  border-bottom: 0.01em solid rgb(0 0 0 / 20%);
+}
+
+.search-ctn input::placeholder {
+  font-weight: 900;
+  font-size: 32px;
+  color: rgb(0 0 0 / 40%);
+}
+
+.back:before {
+  content: "";
+  background: #000;
+  width: 100%;
+  height: 99vh;
+  position: fixed;
+  z-index: 1;
+  opacity: .5;
+  top: 0;
+  left: 0;
+}
+
+.side-cart_ctn {
+  display: none;
+}
 
 
 /* Media Query */
@@ -1341,19 +1447,49 @@ body {
   /* NavBar */
 
   .navbar hr {
-    bottom: 29px;
+    bottom: 15px;
   }
 
   .navbar p {
-    bottom: 8px;
+    bottom: 6px;
   }
 
-  .nav-content, .navbar-list {
+  .navbar nav {
+    height: 7em;
+  }
+
+  .search-bar {
+  }
+
+  .nav-content {
+    width:  7%;
+  }
+
+  .nav-content .toggle-nav_login, .navbar-list {
     display: none;
   }
 
-  .nav-header span {
-    padding: 0 70px 0 0;
+  .fa-shopping-bag {
+    font-size: 25px;
+  }
+
+  .cart {
+    top:  50px;
+  }
+
+  .nav-header {
+    position: relative;
+    bottom: 13px;
+  }
+
+  .nav-header_title {
+  }
+
+  .nav-header_search {
+    display: flex;
+    width: 80px;
+    justify-content: space-around;
+    align-items: baseline;
   }
 
   .hamb-icon {
@@ -1363,11 +1499,12 @@ body {
 
   .fa-bars {
     font-size: 26px;
-    color: #000000b5;
+    color: #000;
+    transition: all .5s ease;
   }
 
   .fa-bars:hover {
-    color: #000;
+    color: rgb(0 0 0 / 50%);
   }
 
   /* Product Details */
@@ -1388,6 +1525,144 @@ body {
   .image-carousel {
     width: 24vw;
   }
+
+  /*  Floating Cart */
+
+  .cart {
+    display: none;
+  }
+
+  /* Side Cart */
+
+  .side-cart_ctn {
+    padding: 16px 41px;
+    z-index: 1;
+    display: block;
+    background: white;
+    width: 389px;
+    position: fixed;
+    height: 93vh;
+    right: 0;
+    top: 0px;
+    animation: slideLeft .2s;
+  }
+
+  @keyframes slideLeft {
+    0% {width: 0px;}
+    15% {width: 50px;}
+    30% {width: 100px}
+    50% {width: 150px;}
+    65% {width: 200px;}
+    80% {width: 250px;}
+    95% {width: 300px;}
+    100% {width: 389px;}
+  }
+
+  .side-cart_items {
+    height: 68vh;
+    overflow-y: auto;
+  }
+
+  .side-cart_item {
+    padding: 8px 0 22px 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 0.01em solid rgb(0 0 0 / 10%);
+    margin-bottom: 14px;
+  }
+
+  .side-cart_item img {
+    width: 100px;
+    cursor: pointer;
+  }
+
+  .side-cart_remove {
+    position: relative;
+    right: 23px;
+    cursor: pointer;
+  }
+
+  .side-cart_itemDetails {
+    width: 165px;
+    position: relative;
+    right: 34px;
+    top: 18px;
+  }
+
+  .side-cart_itemDetails p {
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+
+  .side-cart_itemDetails span:nth-of-type(1){
+    font-size: 14px;
+    color: rgb(0 0 0 / 60%);
+  }
+
+  .side-cart_itemDetails span:nth-of-type(2) {
+    font-weight: 500;
+    margin-left: 4px;
+    font-size: 14px;
+  }
+
+  .side-cart_itemDetails span:nth-of-type(2):hover {
+    color:  #000;
+  }
+
+  .side-cart_total {
+    margin-top: 21px;
+    display: flex;
+    height: 20%;
+    border-top: 0.15em solid;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .side-cart_totalValue {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .side-cart_totalValue span {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .side-cart_totalValue span:nth-of-type(2) {
+    color: rgb(0 0 0 / 70%);
+  }
+
+  .side-cart_total span:hover {
+    color: #000;
+  } 
+
+  .side-cart_buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .side-cart_buttons button {
+    border: 0;
+    width: 186px;
+    height: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .side-cart_buttons .side-cart_goTo {
+    background: none;
+    color: rgb(86 94 111);
+    border: 2px solid rgb(86 94 111);
+  }
+
+  .side-cart_buttons .side-cart_checkout {
+    background: rgb(86 94 111);
+    color: white;
+  }
+
 }
 
 @media screen and (max-width: 767.98px) {
@@ -1457,6 +1732,16 @@ body {
     width: 38%;
   }
 
+  /* Search Bar  */
+
+  .search-ctn {
+    width: 83vw;
+  }
+
+  .search-ctn h4 {
+    left:  76vw;
+  }
+
   /* Footer */
 
   .newsletter-email {
@@ -1509,6 +1794,16 @@ body {
   .footer-links {
     width: 85%;
   }
+
+  /* Search Bar  */
+
+  .search-ctn {
+    width: 77vw;
+  }
+
+  .search-ctn h4 {
+    left: 67vw;
+  }
 }
 
 
@@ -1537,5 +1832,19 @@ body {
 
   .footer-links {
     flex-direction: column;
+  }
+
+  /* Search Bar  */
+
+  .search-ctn {
+    width: 71vw;
+  }
+
+  .search-ctn h4 {
+    left: 56vw;
+  }
+
+  .search-ctn input::placeholder {
+    font-size: 22px;
   }
 } 

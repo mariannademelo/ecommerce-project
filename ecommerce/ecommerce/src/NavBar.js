@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
@@ -7,12 +8,15 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react/cjs/react.development';
 import useFetchCart from './useFetchCart';
 import useFetch from './LandingPage/useFetch';
+import DropdownMenu from './DropdownMenu';
 
 const NavBar = ({ setAdd, cart, setCart, add }) => {
 
-    const element = <FontAwesomeIcon icon={faChevronDown} />
+    const downArrow = <FontAwesomeIcon icon={faChevronDown} />
+    const bag = <FontAwesomeIcon icon={faShoppingBag} />
     const [openCart, setOpenCart] = useState(false)
     const { data: cartData } = useFetchCart('http://localhost:8000/cart', add)
+    const [ toggleSearch, setToggleSearch ] = useState(false)
 
     return ( 
         <div className='navbar'>
@@ -20,15 +24,20 @@ const NavBar = ({ setAdd, cart, setCart, add }) => {
                 <p>ENTREGA GRÁTIS NAS COMPRAS ACIMA DE R$250,00</p>
                 <hr></hr>
                 <div className="nav-header">
-                    <div className="search-bar">
-                        <span><FontAwesomeIcon icon={faSearch} /></span>
-                        <input type="text" placeholder='search' />
+                    <div className='nav-header_search'>
+                        <ToggleMenu />
+                        <span onClick={() => setToggleSearch(true) }>
+                        <FontAwesomeIcon icon={faSearch} />
+                        </span>
+                        {toggleSearch && 
+                        <SearchBar 
+                        setToggleSearch={setToggleSearch} />}
                     </div>
-                    <Link to="/"><span>mini rodini</span></Link>
+                    <Link to="/">
+                    <span className='nav-header_title'>mini rodini</span>
+                    </Link>
                     <section className='nav-content'>
-                        <NavItemLogin name={'Minha Conta'} icon={element}>
-
-                        </NavItemLogin>
+                        <NavItemLogin name={'Minha Conta'} />
 
                         {cartData && <NavItemCart
                         setAdd={setAdd}
@@ -36,16 +45,14 @@ const NavBar = ({ setAdd, cart, setCart, add }) => {
                         openCart={openCart}
                         setOpenCart={setOpenCart} 
                         cartData={cartData}
-                        name={'Meu Carrinho'} 
-                        icon={element} 
+                        icon={bag} 
                         cart={cart} 
                         setCart={setCart} />}
 
                     </section>
-                    <ToggleMenu />
                 </div>
             
-            <Menu />
+            <DropdownMenu />
 
             </nav>
         </div>
@@ -54,19 +61,28 @@ const NavBar = ({ setAdd, cart, setCart, add }) => {
  
 export default NavBar;
 
+function SearchBar({setToggleSearch}) {
+    return (
+        <div className='search-ctn_back back'>
+            <div className='search-ctn'>
+                <h4 onClick={() => setToggleSearch(false)}>fechar</h4>
+                <h5>O que você procura?</h5>
+                <input placeholder="procurar produto"/>
+            </div>
+        </div>
+    );
+}
 
-// Para criar a opção de criar conta ou fazer login
-// também para acessar o carrinho de compras
-// ambas funcionalidades ainda por fazer
-
-function NavItemLogin({name, icon}) {
+function NavItemLogin({name}) {
 
     const [login, setLogin] = useState(false)
 
     return (
         <>
-            <span onClick={() => login === false ? setLogin(true) : setLogin(false)}>{ name }</span>
-            <span className='icon-arrow'>{ icon }</span>
+            <span 
+            className='toggle-nav_login'
+            onClick={() => login === false ? setLogin(true) : setLogin(false)}>
+            { name }</span>
             
             <div onMouseLeave={() => setLogin(false)} className={login === false ? "inactive" : 'login'}>
                 {login && <Login />}
@@ -75,9 +91,24 @@ function NavItemLogin({name, icon}) {
     );
 }
 
+function Login() {
+    return (
+        <>
+            <h3>LOG IN</h3>
+            <input type="email" placeholder='Endereço de Email'/>
+            <input type="password" placeholder='Senha'/>
+            <button className='entre'>Entre</button>
+            <h5>Esqueceu sua senha?</h5>
+            <hr />
+            <button className='crie'>Crie sua conta</button>
+        </>
+    );
+}
+
 function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart, setOpenCart}) {
 
-    const [emptyCart, setEmptyCart] = useState()
+    const [ emptyCart, setEmptyCart ] = useState()
+    const [ sideCart, setSideCart ] = useState(false)
 
     useEffect(() => {
         if (cartData.length === 0) {
@@ -93,8 +124,8 @@ function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart
         <>
             <span 
             onMouseOver={() => setOpenCart(true)}
-            onClick={() => openCart === false ? setOpenCart(true) : setOpenCart(false)}>{ name }</span>
-            <span className='icon-arrow'>{ icon }</span>
+            onClick={() => setSideCart(true)}
+            >{ icon }</span>
             
             <div 
             onMouseLeave={() => setOpenCart(false)}
@@ -118,6 +149,78 @@ function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart
                 emptyCart={emptyCart} 
                 setEmptyCart={setEmptyCart} />}
             </div>
+            {sideCart && <SideCart
+            add={add}
+            setAdd={setAdd} 
+            setSideCart={setSideCart}
+            cartData={cartData}/>}
+        </>
+    );
+}
+
+function SideCart({setSideCart, cartData, add, setAdd}) {
+
+    const [ emptyCart, setEmptyCart ] = useState()
+
+    const removeFromCart = (id) => {
+        fetch('http://localhost:8000/cart/' + id, {
+            method: 'DELETE'
+        }).then(() => {
+            add === true ? setAdd(false) : setAdd(true)
+        })
+    }
+
+    useEffect(() => {
+        cartData.length === 0 ? setEmptyCart(true) : setEmptyCart(false)
+    }, [cartData])
+
+    const totalPrice = () => {
+        let total = 0;
+        for (let i = 0; i < cartData.length; i++) {
+            total += cartData[i].price * cartData[i].quantity
+        }
+        return total.toFixed(2)
+    }
+
+    let price = totalPrice()
+
+    return(
+        <>
+        <div className='side-cart_ctnBack back'>
+            <div className='side-cart_ctn'>
+                <span 
+                onClick={() => setSideCart(false)}>
+                fechar</span>
+                <div className='side-cart_items'>
+                    {cartData.map(product => ( 
+                        <div className='side-cart_item'>
+                            <img src={product.image} alt=''/>
+                            <div className='side-cart_itemDetails'>
+                                <p>{product.item}</p>
+                                <span>Quant.:{product.quantity}</span> 
+                                <span>R${product.price}</span>
+                            </div>
+                            <span 
+                            className='side-cart_remove'
+                            onClick={() => removeFromCart(product.id)}
+                            >X</span>
+                        </div>
+                    ))}
+                </div>
+                <div className='side-cart_total'>
+                    <div className='side-cart_totalValue'>
+                        <span>Total:</span>
+                        <span>R${ price }</span>
+                    </div>
+                    <div className='side-cart_buttons'>
+                        <a href='/carrinho'>
+                        <button className='side-cart_goTo'>Ver Carrinho</button>
+                        </a>
+                        <button className='side-cart_checkout'>Finalizar Compra</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         </>
     );
 }
@@ -188,99 +291,6 @@ function EmptyCart() {
     );
 }
 
-
-
-function Login() {
-    return (
-        <>
-            <h3>LOG IN</h3>
-            <input type="email" placeholder='Endereço de Email'/>
-            <input type="password" placeholder='Senha'/>
-            <button className='entre'>Entre</button>
-            <h5>Esqueceu sua senha?</h5>
-            <hr />
-            <button className='crie'>Crie sua conta</button>
-        </>
-    );
-}
-
-
-function Menu() {
-    return(
-        <>
-            <SubNav>
-                <li><Link to="/novidades" className='navbar-item'>NOVIDADES</Link></li>
-
-                <MenuItem item={'MENINAS'} title={'MENINAS'} link={'/meninas'}>
-                    <DropdownItem menuItem={'Blusas'} itemLink={"/meninas/blusas"} />
-                    <DropdownItem menuItem={'Casacos'} itemLink={"/meninas/casacos"} />
-                    <DropdownItem menuItem={'Pulôver'} itemLink={"/meninas/pulover"} />
-                    <DropdownItem menuItem={'Pijamas'} itemLink={"/meninas/pijamas"} />
-                    <DropdownItem menuItem={'Vestidos'} itemLink={"/meninas/vestidos"} />
-                    <DropdownItem menuItem={'Tops'} itemLink={"/meninas/tops"} />
-                </MenuItem>
-
-                <MenuItem item={'BEBÊS'} title={"BEBÊS"} link={'/bebes'}>
-                    <DropdownItem menuItem={'Macacões'} itemLink={"/bebes/macacoes"} />
-                    <DropdownItem menuItem={'Jaquetas'} itemLink={"/bebes/jaquetas"} />
-                    <DropdownItem menuItem={'Blusas'} itemLink={"/bebes/blusas"} />
-                    <DropdownItem menuItem={'Calças'} itemLink={"/bebes/calças"} />
-                    <DropdownItem menuItem={'Bodies'} itemLink={"/bebes/bodies"} />
-                </MenuItem>
-
-                <MenuItem item={'MENINOS'} title={'MENINOS'} link={'/meninos'}>
-                <DropdownItem menuItem={'Casacos'} itemLink={"/meninos/casacos"}/>
-                <DropdownItem menuItem={'Calças'} itemLink={"/meninos/calças"}/>
-                <DropdownItem menuItem={'Blusas'} itemLink={"/meninos/blusas"}/>
-                <DropdownItem menuItem={'Jaquetas'} itemLink={"/meninos/jaquetas"}/>
-                </MenuItem>
-            </SubNav>
-        </>
-    );
-}
-
-function MenuItem(props) {
-
-    const [open, setOpen] = useState(false)
-
-
-    return (
-        <li 
-        onMouseLeave={() => setOpen(false)}
-        >
-            <Link
-            to={props.link}
-            onMouseOver={() => setOpen(true)}
-            className='navbar-item'>
-            {props.item}</Link>
-            <div 
-            
-            className={ open === false ? "inactive" : "dropdown"} 
-            >
-                <h3>{ props.title }</h3>
-                {open && props.children}
-            </div>
-
-        </li>
-    );
-}
-
-function DropdownItem(props) {
-    return (
-        
-        <Link to={props.itemLink} className="menu-item">
-            {props.menuItem}
-        </Link>
-    );
-}
-
-function SubNav(props) {
-    
-    return (
-        <ul className="navbar-list">{props.children}</ul>
-    );
-}
-
 function ToggleMenu() {
 
     const [menu, setMenu] = useState(false)
@@ -320,10 +330,13 @@ function ToggleMenu() {
 
     return(
         <>
-            <div onClick={() => setMenu(true)}
-            className='hamb-icon'><FontAwesomeIcon icon={faBars} /></div>
+            <div 
+            onClick={() => setMenu(true)}
+            className='hamb-icon'>
+            <FontAwesomeIcon icon={faBars} 
+            /></div>
             {menu && (
-                <div className='toggle-menu'>
+                <div className='toggle-menu fadeIn'>
                     <ul>
                         <li><Link to="/novidades" className='toggle-menu_items' >NOVIDADES</Link></li>
                         <ToggleMenuItem link={"/meninas"} item={"MENINAS"}>
@@ -347,8 +360,9 @@ function ToggleMenu() {
                             <ToggleMenuDropdown itemLink={"/bebes/jaquetas"} menuItem={"Jaquetas"} />
                             <ToggleMenuDropdown itemLink={"/bebes/macacoes"} menuItem={"Macacões"} />
                         </ToggleMenuItem>
-                        <li><Link to="/" className='toggle-menu_items' >Minha conta</Link></li>
-                        <li><Link to="/" className='toggle-menu_items' >Meu Carrinho</Link></li>
+                        <a href="/">
+                        <button className='toggle-menu_login'>
+                        Minha conta</button></a>
                     </ul>
                     <div className='close-menu'>
                         <span onClick={() => setMenu(false)}>FECHAR</span>
