@@ -23,7 +23,10 @@ inicialize a aplicação com
 ```
 inicialize o JSON server com <br />
 ```bash
-npx json-server --watch src/AllProductsDB.json --port 7000
+npx json-server --watch src/AllProductsDB.json --port 7000 
+```
+```bash
+npx json-server --watch src/cartDB.json --port 8000
 ```
 para conseguir visualizar os produtos e o layout. 
 
