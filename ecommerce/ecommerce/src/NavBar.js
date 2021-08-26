@@ -9,6 +9,7 @@ import { useEffect } from 'react/cjs/react.development';
 import useFetchCart from './useFetchCart';
 import useFetch from './LandingPage/useFetch';
 import DropdownMenu from './DropdownMenu';
+import SideCart from './SideCart';
 
 const NavBar = ({ setAdd, cart, setCart, add }) => {
 
@@ -158,99 +159,6 @@ function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart
     );
 }
 
-function SideCart({setSideCart, cartData, add, setAdd}) {
-
-    const [ emptyCart, setEmptyCart ] = useState()
-
-    useEffect(() => {
-        cartData.length === 0 ? setEmptyCart(true) : setEmptyCart(false)
-    }, [cartData])
-
-    return(
-        <>
-        <div className='side-cart_ctnBack back'>
-            <div className='side-cart_ctn'>
-                <h4 
-                onClick={() => setSideCart(false)}
-                className='side-cart_close'>
-                fechar</h4>
-
-                {!emptyCart && 
-                <SideCartContent 
-                add={add}
-                setAdd={setAdd}
-                cartData={cartData}/>}
-
-                {emptyCart && <SideCartContentEmpty/>}
-
-            </div>
-        </div>
-        </>
-    );
-}
-
-function SideCartContent({add, setAdd, cartData}) {
-
-    const removeFromCart = (id) => {
-        fetch('http://localhost:8000/cart/' + id, {
-            method: 'DELETE'
-        }).then(() => {
-            add === true ? setAdd(false) : setAdd(true)
-        })
-    }
-
-    const totalPrice = () => {
-        let total = 0;
-        for (let i = 0; i < cartData.length; i++) {
-            total += cartData[i].price * cartData[i].quantity
-        }
-        return total.toFixed(2)
-    }
-
-    let price = totalPrice()
-    return(
-        <>
-        <div className='side-cart_items'>
-            {cartData.map(product => ( 
-                <div className='side-cart_item'>
-                    <a href={`./${product.itemCode}`}><img src={product.image} alt=''/></a>
-                    <div className='side-cart_itemDetails'>
-                        <a href={`./${product.itemCode}`}>
-                        <p>{product.item}</p></a>
-                        <span>Quant.:{product.quantity}</span> 
-                        <span>R${product.price}</span>
-                    </div>
-                    <span 
-                    className='side-cart_remove'
-                    onClick={() => removeFromCart(product.id)}
-                    >X</span>
-                </div>
-            ))}
-        </div>
-        <div className='side-cart_total'>
-            <div className='side-cart_totalValue'>
-                <span>Total:</span>
-                <span>R${ price }</span>
-            </div>
-            <div className='side-cart_buttons'>
-                <a href='/carrinho'>
-                <button className='side-cart_goTo'>Ver Carrinho</button>
-                </a>
-                <button className='side-cart_checkout'>Finalizar Compra</button>
-            </div>
-        </div>
-        </>
-    );
-}
-
-function SideCartContentEmpty() {
-    return (
-        <div className='side-cart_empty'>
-            <h3>Carrinho está vazio!!</h3>
-        </div>
-    );
-}
-
 function Cart({ setAdd, add, cart, emptyCart, setEmptyCart, setCart, cartData, setOpenCart }) {
     
     const [ quantity, setQuantity ] = useState(1)
@@ -276,24 +184,26 @@ function Cart({ setAdd, add, cart, emptyCart, setEmptyCart, setCart, cartData, s
     
     return (
         <div className='cart-ctn'>
-            {cartData.map((product, ind) => (
-                <>
-                <div className="main-cart">
-                    <div className='cart-product'>
-                        <img src={product.image} alt="" />
-                        <div>
-                            <p><a href={`/produtos/${product.itemCode}`}>
-                            { product.item }</a></p>
-                            <p>Quant.: { product.quantity }</p>
-                            <p>R${ product.price }</p>
-                            <p>Tamanho: { product.size }</p>
-                            <p onClick={() => removeFromCart(product.id)}>REMOVER</p>
+            <div className='cart-ctn_products'>
+                {cartData.map((product, ind) => (
+                    <>
+                    <div className="main-cart">
+                        <div className='cart-product'>
+                            <img src={product.image} alt="" />
+                            <div>
+                                <p><a href={`/produtos/${product.itemCode}`}>
+                                { product.item }</a></p>
+                                <p>Quant.: { product.quantity }</p>
+                                <p>R${ product.price }</p>
+                                <p>Tamanho: { product.size }</p>
+                                <p onClick={() => removeFromCart(product.id)}>REMOVER</p>
+                            </div>
+                            <div>R${product.priceToUpdate}</div>
                         </div>
-                        <div>R${product.priceToUpdate}</div>
                     </div>
-                </div>
-                </>
-            ))}
+                    </>
+                ))}
+            </div>
             <div className='total-price'>
                 <span>Total</span>
                 <span>R${price}</span>
