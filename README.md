@@ -1,7 +1,5 @@
 # Rodini Shop
 
-em construção...
-
 <h4>Descrição</h4>
 
 Página e-commerce responsiva onde o usuário pode adicionar ou remover <br />
