@@ -6,7 +6,6 @@ const ProductDetails = ({ data, setData, setAdd }) => {
 
     const { id } = useParams()
     const { error, data: product, isPending } = useFetch('http://localhost:7000/all-products/' + id)
-    const { data: cartData } = useFetch('http://localhost:8000/cart')
     const [ size, setSize ] = useState()
     
     // hooks to display button states
@@ -126,23 +125,3 @@ const ProductDetails = ({ data, setData, setAdd }) => {
 }
  
 export default ProductDetails;
-
-function Size(props) {
-
-    const [click, setClick] = useState(false)
-
-    const onclick = () => setClick(true)
-
-    return (
-        <div 
-        onClick={() => {
-            if (!click){
-                onclick()
-            } else (setClick(false))
-        }}
-        className={click === false ? "" : "active"}
-        >
-            {props.number}
-        </div>
-    );
-}

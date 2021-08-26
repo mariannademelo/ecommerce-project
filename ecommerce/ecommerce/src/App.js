@@ -24,7 +24,8 @@ function App() {
         cart={cart} 
         setCart={setCart}
         setAdd={setAdd}
-        add={add}/>
+        add={add}
+        allProducts={allProducts}/>
 
         <div className="content">
           <Switch>
@@ -144,7 +145,7 @@ function App() {
               gender={"bebes"} allProducts={allProducts} clothingCategory={"macacão"}/>}
             </Route>
 
-            /*Cart Page*/
+            {/*Cart Page*/}
 
             <Route path='/carrinho'>
               {cartItems && <CartPage 

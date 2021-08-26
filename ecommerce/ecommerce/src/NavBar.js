@@ -1,19 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react/cjs/react.development';
 import useFetchCart from './useFetchCart';
-import useFetch from './LandingPage/useFetch';
 import DropdownMenu from './DropdownMenu';
+import SearchBar from './SearchBar';
 import SideCart from './SideCart';
 
-const NavBar = ({ setAdd, cart, setCart, add }) => {
+const NavBar = ({ setAdd, cart, setCart, add, allProducts }) => {
 
-    const downArrow = <FontAwesomeIcon icon={faChevronDown} />
     const bag = <FontAwesomeIcon icon={faShoppingBag} />
     const [openCart, setOpenCart] = useState(false)
     const { data: cartData } = useFetchCart('http://localhost:8000/cart', add)
@@ -32,7 +30,8 @@ const NavBar = ({ setAdd, cart, setCart, add }) => {
                         </span>
                         {toggleSearch && 
                         <SearchBar 
-                        setToggleSearch={setToggleSearch} />}
+                        setToggleSearch={setToggleSearch} 
+                        allProducts={allProducts}/>}
                     </div>
                     <Link to="/">
                     <span className='nav-header_title'>mini rodini</span>
@@ -61,18 +60,6 @@ const NavBar = ({ setAdd, cart, setCart, add }) => {
 }
  
 export default NavBar;
-
-function SearchBar({setToggleSearch}) {
-    return (
-        <div className='search-ctn_back back'>
-            <div className='search-ctn'>
-                <h4 onClick={() => setToggleSearch(false)}>fechar</h4>
-                <h5>O que você procura?</h5>
-                <input placeholder="procurar produto"/>
-            </div>
-        </div>
-    );
-}
 
 function NavItemLogin({name}) {
 
@@ -160,9 +147,6 @@ function NavItemCart({setAdd, add, name, icon, cart, setCart, cartData, openCart
 }
 
 function Cart({ setAdd, add, cart, emptyCart, setEmptyCart, setCart, cartData, setOpenCart }) {
-    
-    const [ quantity, setQuantity ] = useState(1)
-    const [ priceItem, setPriceItem ] = useState(0)
 
     const removeFromCart = (id) => {
         fetch('http://localhost:8000/cart/' + id, {

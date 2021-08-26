@@ -1,11 +1,7 @@
-import useFetch from './LandingPage/useFetch';
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 
 const CartPage = ({ items }) => {
 
-	const [ state, setState ] = useState()
-	const [ priceItem, setPriceItem ] = useState(0)
 	const [ price, setPrice ] = useState(0)
 	const [ empty, setEmpty ] = useState()
 
