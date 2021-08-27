@@ -17,42 +17,60 @@ const NavBar = ({ setAdd, cart, setCart, add, allProducts }) => {
     const { data: cartData } = useFetchCart('http://localhost:8000/cart', add)
     const [ toggleSearch, setToggleSearch ] = useState(false)
 
+    const [ scroll, setScroll ] = useState(false)
+
+    const handleScroll = () => {
+        const offset = window.scrollY
+        if (offset > 200) {
+            setScroll(true)
+        } else {
+            setScroll(false)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+    })
+
     return ( 
         <div className='navbar'>
             <nav>
                 <p>ENTREGA GRÁTIS NAS COMPRAS ACIMA DE R$250,00</p>
                 <hr></hr>
-                <div className="nav-header">
-                    <div className='nav-header_search'>
-                        <ToggleMenu />
-                        <span onClick={() => setToggleSearch(true) }>
-                        <FontAwesomeIcon icon={faSearch} />
-                        </span>
-                        {toggleSearch && 
-                        <SearchBar 
-                        setToggleSearch={setToggleSearch} 
-                        allProducts={allProducts}/>}
+
+                <div className={scroll === true ? "navbar_main scrolled" : "navbar_main"}>
+                    <div className="nav-header">
+                        <div className='nav-header_search'>
+                            <ToggleMenu />
+                            <span onClick={() => setToggleSearch(true) }>
+                            <FontAwesomeIcon icon={faSearch} />
+                            </span>
+                            {toggleSearch && 
+                            <SearchBar 
+                            setToggleSearch={setToggleSearch} 
+                            allProducts={allProducts}/>}
+                        </div>
+                        <Link to="/">
+                        <span className='nav-header_title'>mini rodini</span>
+                        </Link>
+                        <section className='nav-content'>
+                            <NavItemLogin name={'Minha Conta'} />
+
+                            {cartData && <NavItemCart
+                            setAdd={setAdd}
+                            add={add}
+                            openCart={openCart}
+                            setOpenCart={setOpenCart} 
+                            cartData={cartData}
+                            icon={bag} 
+                            cart={cart} 
+                            setCart={setCart} />}
+
+                        </section>
                     </div>
-                    <Link to="/">
-                    <span className='nav-header_title'>mini rodini</span>
-                    </Link>
-                    <section className='nav-content'>
-                        <NavItemLogin name={'Minha Conta'} />
-
-                        {cartData && <NavItemCart
-                        setAdd={setAdd}
-                        add={add}
-                        openCart={openCart}
-                        setOpenCart={setOpenCart} 
-                        cartData={cartData}
-                        icon={bag} 
-                        cart={cart} 
-                        setCart={setCart} />}
-
-                    </section>
+                
+                    <DropdownMenu />
                 </div>
-            
-            <DropdownMenu />
 
             </nav>
         </div>

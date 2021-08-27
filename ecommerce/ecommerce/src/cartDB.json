@@ -1,32 +1,3 @@
 {
-  "cart": [
-    {
-      "quantity": 1,
-      "item": "Jaqueta Para Bebês",
-      "price": 55,
-      "image": "https://i.imgur.com/JFjOq35.jpg",
-      "itemCode": 25664644,
-      "priceToUpdate": 55,
-      "id": 2
-    },
-    {
-      "quantity": 1,
-      "item": "Jaqueta Para Bebês",
-      "price": 55,
-      "image": "https://i.imgur.com/JFjOq35.jpg",
-      "itemCode": 25664644,
-      "priceToUpdate": 55,
-      "id": 3
-    },
-    {
-      "quantity": 1,
-      "item": "Jaqueta Para Bebês",
-      "price": 55,
-      "image": "https://i.imgur.com/JFjOq35.jpg",
-      "size": "1",
-      "itemCode": 25664644,
-      "priceToUpdate": 55,
-      "id": 4
-    }
-  ]
+  "cart": []
 }

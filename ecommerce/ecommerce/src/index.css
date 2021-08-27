@@ -46,6 +46,23 @@ body {
   position: relative;
 }
 
+.scrolled {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+}
+
+.navbar_main {
+  margin-bottom: 2px;
+  height: 12vh;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
 .hamb-icon {
   display: none;
 }
@@ -63,7 +80,7 @@ body {
 .navbar nav {
   box-shadow: 0 1px 10px 1px rgb(138 138 138 / 21%);
   width: 99vw;
-  height: 10em;
+  height: 7em;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -74,7 +91,7 @@ body {
   background: black;
   width: 100%;
   position: relative;
-  bottom: 15px;
+  bottom: 5px;
 }
 
 .navbar p {
@@ -1483,7 +1500,7 @@ body {
   /* NavBar */
 
   .navbar hr {
-    bottom: 15px;
+    bottom: 10px;
   }
 
   .navbar p {
@@ -1491,10 +1508,13 @@ body {
   }
 
   .navbar nav {
-    height: 7em;
+    height: 5em;
   }
 
-  .search-bar {
+  .navbar_main {
+    height: 6vh;
+    margin-bottom: 0;
+    padding-top: 6px;
   }
 
   .nav-content {
